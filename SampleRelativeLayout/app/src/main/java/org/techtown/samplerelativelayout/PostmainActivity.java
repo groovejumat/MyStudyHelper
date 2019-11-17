@@ -81,7 +81,7 @@ public class PostmainActivity extends AppCompatActivity {
             //////액션바에서 내용 추가하기 기능 생성//////
             Toast.makeText(this, "추가버튼을 클릭", Toast.LENGTH_SHORT).show();
             //커스텀 다이얼로그 생성 후 띄우기//
-            final Dialog dialog2 = new Dialog(MainActivity.this);
+            final Dialog dialog2 = new Dialog(PostmainActivity.this);
             dialog2.setContentView(R.layout.postdialog);
             final EditText text1 = (EditText) dialog2.findViewById(R.id.image_url);
             final EditText text2 = (EditText) dialog2.findViewById(R.id.post_name);
@@ -117,14 +117,14 @@ public class PostmainActivity extends AppCompatActivity {
         }
         if (id == R.id.action_grid) {
             Toast.makeText(this, "그리드버튼을 클릭", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, PostmainActivity.class);
             startActivity(intent);
             return true;
         }
 
         if (id == R.id.action_horizontal) {
             Toast.makeText(this, "평행모드 버튼을 클릭", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, PostmainActivity.class);
             intent.putExtra("number",2);
             //intent.putExtra("data", items);
             startActivity(intent);
@@ -132,7 +132,7 @@ public class PostmainActivity extends AppCompatActivity {
         }
         if (id == R.id.action_scriptonly) {
             Toast.makeText(this, "세로 모드 버튼을 클릭", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, PostmainActivity.class);
             intent.putExtra("number",1);
             //adapter=textonlyadapter;
             startActivity(intent);
@@ -146,7 +146,7 @@ public class PostmainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_postmain);
         fillbasicitems();
         adapter.setItems(items);
         Log.e("LOG", "어댑터에 세팅되어진 아이템의 갯수를 확인합니다." + items.size());
@@ -222,5 +222,4 @@ public class PostmainActivity extends AppCompatActivity {
         items.add(movie6);
         items.add(movie7);
     }
-
 }

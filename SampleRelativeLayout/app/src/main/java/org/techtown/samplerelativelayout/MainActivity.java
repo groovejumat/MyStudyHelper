@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),MemomainActivity.class);
+                Intent intent = new Intent(getApplicationContext(),PostmainActivity.class);
                 startActivity(intent);//액티비티 띄우기
             }
         });
