@@ -141,8 +141,8 @@ public class MemomainActivity extends AppCompatActivity{
         buttonInsertA.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(),AddmemoActivity.class); // 다음 넘어갈 클래스 지정
-//                startActivityForResult(intent,1); // 다음 화면으로 넘어간다
+                Intent intent = new Intent(getApplicationContext(),AddmemoActivity.class); // 다음 넘어갈 클래스 지정
+                startActivityForResult(intent,1); // 다음 화면으로 넘어간다
             }
         });
     }
