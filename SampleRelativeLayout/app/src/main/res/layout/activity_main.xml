@@ -76,8 +76,8 @@
         android:textColorLink="#00FFFFFF"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/textView8"
-        app:layout_constraintEnd_toEndOf="@+id/button12"
-        app:layout_constraintStart_toStartOf="@+id/button12"
+        app:layout_constraintEnd_toEndOf="@+id/post"
+        app:layout_constraintStart_toStartOf="@+id/post"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <TextView
@@ -109,15 +109,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="스터디계획표"
+        android:text="포스팅하기"
         android:textColorLink="#000000"
         android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="@+id/button12"
-        app:layout_constraintStart_toStartOf="@+id/button12"
-        app:layout_constraintTop_toBottomOf="@+id/button12" />
+        app:layout_constraintEnd_toEndOf="@+id/post"
+        app:layout_constraintStart_toStartOf="@+id/post"
+        app:layout_constraintTop_toBottomOf="@+id/post" />
 
     <Button
-        android:id="@+id/button12"
+        android:id="@+id/post"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="138dp"
         android:layout_height="127dp"
@@ -148,9 +148,9 @@
         android:textColorLink="#00FFFFFF"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/textView5"
-        app:layout_constraintEnd_toStartOf="@+id/button12"
+        app:layout_constraintEnd_toStartOf="@+id/post"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button12" />
+        app:layout_constraintTop_toTopOf="@+id/post" />
 
     <TextView
         android:id="@+id/textView5"

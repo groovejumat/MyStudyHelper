@@ -49,6 +49,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //포스팅으로 이동하는 인텐트//
+        Button button4 = (Button)findViewById(R.id.post); /*페이지 전환버튼*/
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),MemomainActivity.class);
+                startActivity(intent);//액티비티 띄우기
+            }
+        });
+
 //        //인텐트 데이터 받아오는 버튼//
 //        Button button3 = (Button)findViewById(R.id.studyinfo); /*페이지 전환버튼*/
 //        button3.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +76,5 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
     }
-
 }
