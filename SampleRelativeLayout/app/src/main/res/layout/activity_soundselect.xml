@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorSky"
+    tools:context=".Soundselect">
+
+    <Button
+        android:id="@+id/bonefireoff"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:background="@drawable/soundoff"
+        app:layout_constraintBottom_toBottomOf="@+id/firesd"
+        app:layout_constraintStart_toEndOf="@+id/bonfire"
+        app:layout_constraintTop_toTopOf="@+id/firesd" />
+
+    <Button
+        android:id="@+id/windbtoff"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:background="@drawable/soundoff"
+        app:layout_constraintBottom_toBottomOf="@+id/windsd"
+        app:layout_constraintStart_toEndOf="@+id/windbt"
+        app:layout_constraintTop_toTopOf="@+id/windsd" />
+
+    <Button
+        android:id="@+id/rainbtoff"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:background="@drawable/soundoff"
+        app:layout_constraintBottom_toBottomOf="@+id/rainsd"
+        app:layout_constraintStart_toEndOf="@+id/rainbt"
+        app:layout_constraintTop_toTopOf="@+id/rainsd" />
+
+    <Button
+        android:id="@+id/bonfire"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:background="@drawable/soundon"
+        app:layout_constraintBottom_toBottomOf="@+id/firesd"
+        app:layout_constraintStart_toEndOf="@+id/firesd"
+        app:layout_constraintTop_toTopOf="@+id/firesd"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <Button
+        android:id="@+id/windbt"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:background="@drawable/soundon"
+        app:layout_constraintBottom_toBottomOf="@+id/windsd"
+        app:layout_constraintStart_toEndOf="@+id/windsd"
+        app:layout_constraintTop_toTopOf="@+id/windsd"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <Button
+        android:id="@+id/coffeeshopbt"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:background="@drawable/soundon"
+        app:layout_constraintBottom_toBottomOf="@+id/coffeeshopsd"
+        app:layout_constraintStart_toEndOf="@+id/coffeeshopsd"
+        app:layout_constraintTop_toTopOf="@+id/coffeeshopsd"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <Button
+        android:id="@+id/rainbt"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:background="@drawable/soundon"
+        app:layout_constraintBottom_toBottomOf="@+id/rainsd"
+        app:layout_constraintStart_toEndOf="@+id/rainsd"
+        app:layout_constraintTop_toTopOf="@+id/rainsd"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <ImageView
+        android:id="@+id/forestsd"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/coffeeshopsd"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        app:srcCompat="@drawable/forest" />
+
+    <Button
+        android:id="@+id/forrestbt"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:background="@drawable/soundon"
+        app:layout_constraintBottom_toBottomOf="@+id/forestsd"
+        app:layout_constraintStart_toEndOf="@+id/forestsd"
+        app:layout_constraintTop_toTopOf="@+id/forestsd"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <Button
+        android:id="@+id/forrestbtoff"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:background="@drawable/soundoff"
+        app:layout_constraintBottom_toBottomOf="@+id/forestsd"
+        app:layout_constraintStart_toEndOf="@+id/forrestbt"
+        app:layout_constraintTop_toTopOf="@+id/forestsd" />
+
+    <Button
+        android:id="@+id/coffeeshopbtoff"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:background="@drawable/soundoff"
+        app:layout_constraintBottom_toBottomOf="@+id/coffeeshopsd"
+        app:layout_constraintStart_toEndOf="@+id/coffeeshopbt"
+        app:layout_constraintTop_toTopOf="@+id/coffeeshopsd" />
+
+    <ImageView
+        android:id="@+id/coffeeshopsd"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        app:layout_constraintBottom_toTopOf="@+id/rainsd"
+        app:layout_constraintStart_toStartOf="@+id/forestsd"
+        app:layout_constraintTop_toBottomOf="@+id/forestsd"
+        app:srcCompat="@drawable/coffeeshop" />
+
+    <ImageView
+        android:id="@+id/rainsd"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        app:layout_constraintBottom_toTopOf="@+id/windsd"
+        app:layout_constraintStart_toStartOf="@+id/forestsd"
+        app:layout_constraintTop_toBottomOf="@+id/coffeeshopsd"
+        app:srcCompat="@drawable/rain" />
+
+    <ImageView
+        android:id="@+id/firesd"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/forestsd"
+        app:layout_constraintTop_toBottomOf="@+id/windsd"
+        app:srcCompat="@drawable/firewood" />
+
+    <ImageView
+        android:id="@+id/windsd"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        app:layout_constraintBottom_toTopOf="@+id/firesd"
+        app:layout_constraintStart_toStartOf="@+id/forestsd"
+        app:layout_constraintTop_toBottomOf="@+id/rainsd"
+        app:srcCompat="@drawable/wind" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="백색소음"
+        android:textColor="#010000"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

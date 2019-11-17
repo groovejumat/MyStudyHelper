@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".EditmemoActivity">
+
+    <TextView
+        android:id="@+id/memo_time_ed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="memocontent"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/memo_date_ed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="memocontent"
+        android:textSize="15dp" />
+
+    <EditText
+        android:id="@+id/memo_title_ed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="제목"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/memo_context_ed"
+        android:layout_width="match_parent"
+        android:layout_height="76dp"
+        android:layout_weight="8"
+        android:singleLine="false"
+        android:text="내용"
+        android:textSize="15dp" />
+
+    <Button
+        android:id="@+id/edit_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="수정하기" />
+
+    <Button
+        android:id="@+id/modify_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:text="저장하기" />
+
+</LinearLayout>

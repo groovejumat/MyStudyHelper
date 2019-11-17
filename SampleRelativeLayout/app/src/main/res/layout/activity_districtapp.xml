@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorSky"
+    android:orientation="vertical"
+    tools:context=".Districtapp" >
+
+    <TextView
+        android:id="@+id/textView33"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_horizontal"
+        android:text="사용제한 앱 설정"
+        android:textColor="#000000"
+        android:textSize="35dp" />
+
+    <Button
+        android:id="@+id/button26"
+        android:layout_width="354dp"
+        android:layout_height="37dp"
+        android:layout_margin="25dp"
+        android:background="#B1E4FA"
+        android:hapticFeedbackEnabled="false"
+        android:text="설정 완료" />
+
+    <TextView
+        android:id="@+id/textView38"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="사용을 제한 할 앱을 선택합니다." />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button27"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="#B1E4FA"
+            android:text="사용시간순" />
+
+        <Button
+            android:id="@+id/button28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="#B1E4FA"
+            android:text="실행시간순" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:background="#FFFFFF">
+
+        <Button
+            android:id="@+id/button30"
+            android:layout_width="60dp"
+            android:layout_height="59dp"
+            android:text="앱" />
+
+        <TextView
+            android:id="@+id/textView39"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/button30"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="35dp"
+            android:layout_toEndOf="@+id/button30"
+            android:layout_toRightOf="@+id/button30"
+            android:text="앱이름 : 앱" />
+
+        <TextView
+            android:id="@+id/textView40"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/button30"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="7dp"
+            android:layout_toEndOf="@+id/button30"
+            android:layout_toRightOf="@+id/button30"
+            android:text="사용시간 : 2시간     마지막사용시각 : 오전 12시" />
+
+        <CheckBox
+            android:id="@+id/checkBox7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView40"
+            android:layout_marginStart="18dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginBottom="-7dp"
+            android:layout_toEndOf="@+id/textView40"
+            android:layout_toRightOf="@+id/textView40" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:background="#FFFFFF">
+
+        <CheckBox
+            android:id="@+id/checkBox16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView40"
+            android:layout_marginStart="18dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginBottom="-7dp"
+            android:layout_toEndOf="@+id/textView40"
+            android:layout_toRightOf="@+id/textView40" />
+
+        <Button
+            android:id="@+id/button30"
+            android:layout_width="60dp"
+            android:layout_height="59dp"
+            android:text="앱" />
+
+        <TextView
+            android:id="@+id/textView39"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/button30"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="35dp"
+            android:layout_toEndOf="@+id/button30"
+            android:layout_toRightOf="@+id/button30"
+            android:text="앱이름 : 앱" />
+
+        <TextView
+            android:id="@+id/textView40"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/button30"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="7dp"
+            android:layout_toEndOf="@+id/button30"
+            android:layout_toRightOf="@+id/button30"
+            android:text="사용시간 : 2시간     마지막사용시각 : 오전 12시" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:background="#FFFFFF">
+
+        <CheckBox
+            android:id="@+id/checkBox17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView40"
+            android:layout_marginStart="18dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginBottom="-7dp"
+            android:layout_toEndOf="@+id/textView40"
+            android:layout_toRightOf="@+id/textView40" />
+
+        <Button
+            android:id="@+id/button30"
+            android:layout_width="60dp"
+            android:layout_height="59dp"
+            android:text="앱" />
+
+        <TextView
+            android:id="@+id/textView39"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/button30"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="35dp"
+            android:layout_toEndOf="@+id/button30"
+            android:layout_toRightOf="@+id/button30"
+            android:text="앱이름 : 앱" />
+
+        <TextView
+            android:id="@+id/textView40"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/button30"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="7dp"
+            android:layout_toEndOf="@+id/button30"
+            android:layout_toRightOf="@+id/button30"
+            android:text="사용시간 : 2시간     마지막사용시각 : 오전 12시" />
+    </RelativeLayout>
+
+</LinearLayout>
