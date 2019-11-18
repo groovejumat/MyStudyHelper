@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "612393823523",
+    "firebase_url": "https://studyhelper-98bb1.firebaseio.com",
+    "project_id": "studyhelper-98bb1",
+    "storage_bucket": "studyhelper-98bb1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:612393823523:android:c099db76c6d8715019f096",
+        "android_client_info": {
+          "package_name": "org.techtown.samplerelativelayout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "612393823523-mk9miv8ah0jlfcapb20ae53rn42pqucn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDK8fUcsxppd19mM-ACbB8oWKBvB_R_dJA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "612393823523-mk9miv8ah0jlfcapb20ae53rn42pqucn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
