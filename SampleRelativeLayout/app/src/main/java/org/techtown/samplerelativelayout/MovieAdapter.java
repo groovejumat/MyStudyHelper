@@ -77,7 +77,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             super(itemView);
 
             ivMovie = itemView.findViewById(R.id.iv_item_movie);
-
             tvTitle = itemView.findViewById(R.id.tv_item_movie_title);
             tvContent = itemView.findViewById(R.id.tv_item_movie_content);
             //tvGenre = itemView.findViewById(R.id.tv_item_movie_genre);
@@ -111,24 +110,27 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull MovieAdapter.ViewHolder viewHolder, int position) {
 
         Movie item = items.get(position);
-        Glide.with(viewHolder.itemView.getContext())
-                .load(item.getUrl())
-                .into(viewHolder.ivMovie);
-
-
-//        if (item.getUrl().isEmpty()) {
-//            Glide.with(viewHolder.itemView.getContext())
-//                    .load(item.getUrl())
-//                    .into(viewHolder.ivMovie);
-//            viewHolder.ivMovie.setVisibility(View.GONE);
+//        Glide.with(viewHolder.itemView.getContext())
+//                .load(item.getUrl())
+//                .into(viewHolder.ivMovie);
 //
-//        }
-//        else {
-//            Glide.with(viewHolder.itemView.getContext())
-//                    .load(item.getUrl())
-//                    .into(viewHolder.ivMovie);
-//            //viewHolder.ivMovie.setVisibility(View.GONE);
-//        }
+
+
+        if (item.getUrl().isEmpty()) {
+            Glide.with(viewHolder.itemView.getContext())
+                    .load(item.getUrl())
+                    .into(viewHolder.ivMovie);
+            Log.e("LOG", position + "   뷰홀더에 바인딩 될 이미지의 링크 확인.11" + item.getUrl());
+            viewHolder.ivMovie.setVisibility(View.GONE);
+
+        }
+        else {
+            Glide.with(viewHolder.itemView.getContext())
+                    .load(item.getUrl())
+                    .into(viewHolder.ivMovie);
+            Log.e("LOG", position + "   뷰홀더에 바인딩 될 이미지의 링크 확인.11" + item.getUrl());
+            //viewHolder.ivMovie.setVisibility(View.GONE);
+        }
 
         viewHolder.tvTitle.setText(item.getTitle());
         viewHolder.tvContent.setText(item.getContent());

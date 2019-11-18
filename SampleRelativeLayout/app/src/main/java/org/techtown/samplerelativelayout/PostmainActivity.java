@@ -148,6 +148,7 @@ public class PostmainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_postmain);
         fillbasicitems();
+        Log.e("LOG", "어댑터에 세팅되어진 아이템의 갯수를 확인합니다." );
         adapter.setItems(items);
         Log.e("LOG", "어댑터에 세팅되어진 아이템의 갯수를 확인합니다." + items.size());
         adapter = new MovieAdapter(items);
@@ -195,6 +196,7 @@ public class PostmainActivity extends AppCompatActivity {
 
         Movie movie1 = new Movie("https://wooooooak.github.io/public/img/android/recycler1.png",
                 "action", "aRecyclerView", "https://wooooooak.github.io/android/2019/03/28/recycler_view/");
+        Log.e("LOG", "어댑터에 세팅되어진 아이템의 갯수를 확인합니다." + movie1.getUrl());
 
         Movie movie2 = new Movie("https://kairo96.gitbooks.io/android/content/pic2/2-4-1-1.jpg",
                 "action", "bLifeCycle", "https://recipes4dev.tistory.com/90");
