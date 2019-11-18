@@ -64,6 +64,8 @@ public class PostmainActivity extends AppCompatActivity {
                 Log.e("LOG", "검색기능이 실행되어졌음.");
                 return false;
             }
+
+
         });
         return true;
     }
@@ -106,7 +108,7 @@ public class PostmainActivity extends AppCompatActivity {
                     Movie m = new Movie(image_url,"의미없음",post_name,url_link);
                     items.add(m);
                     //참조용 데이터 리스트도 변경됌.
-                    adapter.SearchDataSet(items);
+                    adapter.SearchDataReSet(items);
                     adapter.notifyDataSetChanged();
                     dialog2.dismiss();    //등록 작업을 진행 해줍니다.
                 }

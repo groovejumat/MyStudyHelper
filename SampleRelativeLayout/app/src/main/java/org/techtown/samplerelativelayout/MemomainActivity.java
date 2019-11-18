@@ -41,7 +41,7 @@ public class MemomainActivity extends AppCompatActivity{
 
         //어레이 리스트 생성
         mArrayList = new ArrayList<>();
-        Dictionary dict = new Dictionary("시연용", "시연용", "시연용" );
+        Dictionary dict = new Dictionary("시연용메모", "시연용", "시연용" );
         dict.setContext("이 메모는 시연용 입니다.");
         mArrayList.add(dict);
         mArrayList.add(dict);

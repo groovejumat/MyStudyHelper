@@ -34,7 +34,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         Log.e("LOG", "아이템이 가득찬 상태일 때의 갯수 확인." + itemsFull.size());
     }
 
-    public void SearchDataSet (ArrayList<Movie> items){
+    public void SearchDataReSet (ArrayList<Movie> items){
         Log.e("LOG", "색인 데이터 리스트 변경." + items.size());
         itemsFull=items;
     }
