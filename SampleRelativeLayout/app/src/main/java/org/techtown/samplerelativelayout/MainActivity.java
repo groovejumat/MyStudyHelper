@@ -59,9 +59,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //포스팅으로 이동하는 인텐트//
+        Button button5 = (Button)findViewById(R.id.signup); /*페이지 전환버튼*/
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),SignupActivity.class);
+                startActivity(intent);//액티비티 띄우기
+            }
+        });
+
 //        //인텐트 데이터 받아오는 버튼//
-//        Button button3 = (Button)findViewById(R.id.studyinfo); /*페이지 전환버튼*/
-//        button3.setOnClickListener(new View.OnClickListener() {
+//        Button button5 = (Button)findViewById(R.id.signup); /*페이지 전환버튼*/
+//        button5.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                //공부한 통합 시간 알아보기//
@@ -69,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 //                Intent intent = getIntent();
 //                textview.setText("전달받은 데이터 : "+intent.getExtras().getInt("Key"));
 //            }
-//
+
 //        });
     }
 
