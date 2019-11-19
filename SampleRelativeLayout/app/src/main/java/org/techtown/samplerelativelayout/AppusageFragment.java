@@ -152,6 +152,7 @@ public class AppusageFragment extends Fragment {
         for (int i = 0; i < usageStatsList.size(); i++) {
             CustomUsageStats customUsageStats = new CustomUsageStats();
             customUsageStats.usageStats = usageStatsList.get(i);
+
             try {
                 Drawable appIcon = getActivity().getPackageManager()
                         .getApplicationIcon(customUsageStats.usageStats.getPackageName());
@@ -162,6 +163,9 @@ public class AppusageFragment extends Fragment {
 //                customUsageStats.appIcon = getActivity()
 //                        .getDrawable(R.drawable.ic_default_app_launcher);
             }
+//            if(usageStatsList.get(i).getTotalTimeForegroundServiceUsed()!=0) {
+//                System.out.println("Ok");
+//            }
             customUsageStatsList.add(customUsageStats);
         }
         mUsageListAdapter.setCustomUsageStatsList(customUsageStatsList);

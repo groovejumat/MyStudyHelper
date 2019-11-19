@@ -18,6 +18,7 @@ public class UsageListAdapter extends RecyclerView.Adapter<UsageListAdapter.View
 
     private List<CustomUsageStats> mCustomUsageStatsList = new ArrayList<>();
     private DateFormat mDateFormat = new SimpleDateFormat();
+    private DateFormat mTimeFormat = new SimpleDateFormat("HH:mm:ss");
 
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder)
@@ -59,13 +60,17 @@ public class UsageListAdapter extends RecyclerView.Adapter<UsageListAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        viewHolder.getPackageName().setText(
-                mCustomUsageStatsList.get(position).usageStats.getPackageName());
-        long lastTimeUsed = mCustomUsageStatsList.get(position).usageStats.getLastTimeUsed();
-        long foregroundTimeUsed = mCustomUsageStatsList.get(position).usageStats.getTotalTimeInForeground();
-        System.out.println(foregroundTimeUsed);
-        viewHolder.getLastTimeUsed().setText(mDateFormat.format(new Date(lastTimeUsed)));
-        viewHolder.getAppIcon().setImageDrawable(mCustomUsageStatsList.get(position).appIcon);
+        if(mCustomUsageStatsList.get(position).usageStats.getTotalTimeInForeground()!=0) {
+            viewHolder.getPackageName().setText(
+                    mCustomUsageStatsList.get(position).usageStats.getPackageName());
+            long lastTimeUsed = mCustomUsageStatsList.get(position).usageStats.getLastTimeUsed();
+            long foregroundTimeUsed = mCustomUsageStatsList.get(position).usageStats.getTotalTimeInForeground();
+
+            System.out.println(mTimeFormat.format(mCustomUsageStatsList.get(position).usageStats.getTotalTimeInForeground()));
+            //viewHolder.getLastTimeUsed().setText(mDateFormat.format(new Date(lastTimeUsed)));
+            viewHolder.getLastTimeUsed().setText(mTimeFormat.format(mCustomUsageStatsList.get(position).usageStats.getTotalTimeInForeground()));
+            viewHolder.getAppIcon().setImageDrawable(mCustomUsageStatsList.get(position).appIcon);
+        }
     }
 
     @Override
