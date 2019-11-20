@@ -28,7 +28,7 @@
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textColor="@android:color/white" />
+                android:textColor="#030000" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -47,7 +47,7 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textColor="@android:color/white" />
+                android:textColor="#040000" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,7 +70,7 @@
             android:background="#B1E4FA"
             android:text="암호를 잃어버리셨나요?"
             android:textAllCaps="false"
-            android:textColor="@color/colorAccent" />
+            android:textColor="#030001" />
 
         <!-- Link to Login Screen -->
 
@@ -82,7 +82,7 @@
             android:background="#B1E4FA"
             android:text="로그인하기"
             android:textAllCaps="false"
-            android:textColor="@color/white"
+            android:textColor="#030000"
             android:textSize="15dp" />
     </LinearLayout>
 

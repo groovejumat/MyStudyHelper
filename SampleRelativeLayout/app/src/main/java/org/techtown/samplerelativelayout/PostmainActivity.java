@@ -25,7 +25,9 @@ public class PostmainActivity extends AppCompatActivity {
 
     //어댑터 종류 설정하기//
     private ArrayList<Movie> items = new ArrayList<>();
+    private ArrayList<Movie> getitems = new ArrayList<>();
     private MovieAdapter adapter = new MovieAdapter(items);
+
     boolean Onsearch = false;
 
 
@@ -132,7 +134,10 @@ public class PostmainActivity extends AppCompatActivity {
         if (id == R.id.action_grid) {
             Toast.makeText(this, "그리드버튼을 클릭", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, PostmainActivity.class);
+            intent.putExtra("data", this.items);
+            Log.e("LOG", "보내는 아이템의 갯수를 확인합니다." + String.valueOf(this.items.size()));
             startActivity(intent);
+            finish();
             return true;
         }
 
@@ -140,16 +145,20 @@ public class PostmainActivity extends AppCompatActivity {
             Toast.makeText(this, "평행모드 버튼을 클릭", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, PostmainActivity.class);
             intent.putExtra("number",2);
-            //intent.putExtra("data", items);
+            intent.putExtra("data", this.items);
+            Log.e("LOG", "보내는 아이템의 갯수를 확인합니다." + String.valueOf(this.items.size()));
             startActivity(intent);
+            finish();
             return true;
         }
         if (id == R.id.action_scriptonly) {
             Toast.makeText(this, "세로 모드 버튼을 클릭", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, PostmainActivity.class);
             intent.putExtra("number",1);
-            //adapter=textonlyadapter;
+            intent.putExtra("data", this.items);
+            Log.e("LOG", "보내는 아이템의 갯수를 확인합니다." + String.valueOf(this.items.size()));
             startActivity(intent);
+            finish();
             return true;
         }
 
@@ -162,6 +171,15 @@ public class PostmainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_postmain);
         fillbasicitems();
+        //(데이터를 뷰모드 변경시에 다시 세팅하기 위해서 만든 기능)
+        Intent intent = getIntent();
+        int viewmode = intent.getIntExtra("number",0);
+        if(intent.getSerializableExtra("data")!=null) {
+            System.out.println(viewmode);
+            getitems = (ArrayList<Movie>) intent.getSerializableExtra("data");
+            Log.e("LOG", "받는 아이템의 갯수를 확인합니다." + String.valueOf(this.getitems.size()));
+            this.items=getitems;
+        }
         Log.e("LOG", "어댑터에 세팅되어진 아이템의 갯수를 확인합니다." );
         adapter.setItems(items);
         Log.e("LOG", "어댑터에 세팅되어진 아이템의 갯수를 확인합니다." + items.size());
@@ -169,11 +187,8 @@ public class PostmainActivity extends AppCompatActivity {
         //recycleView 초기화
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
 
-        Intent intent = getIntent();
-        int viewmode = intent.getIntExtra("number",0);
-        System.out.println(viewmode);
-        //(데이터를 뷰모드 변경시에 다시 세팅하기 위해서 만든 기능)
-        //this.items = (ArrayList<Movie>) intent.getSerializableExtra("data");
+
+
 
         if(viewmode == 3){
             LinearLayoutManager linearLayoutManager
@@ -238,4 +253,5 @@ public class PostmainActivity extends AppCompatActivity {
         items.add(movie6);
         items.add(movie7);
     }
+
 }

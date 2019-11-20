@@ -1,6 +1,8 @@
 package org.techtown.samplerelativelayout;
 
-public class Movie {
+import java.io.Serializable;
+
+public class Movie implements Serializable {
     private String url;
     private String genre;
     private String title;
