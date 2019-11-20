@@ -88,11 +88,10 @@ public class AppusageFragment extends Fragment {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                StatsUsageInterval statsUsageInterval = StatsUsageInterval
-                        .getValue(strings[position]);
+                StatsUsageInterval statsUsageInterval = StatsUsageInterval.getValue(strings[position]);
                 if (statsUsageInterval != null) {
                     List<UsageStats> usageStatsList =
-                            getUsageStatistics(statsUsageInterval.mInterval);
+                            getUsageStatistics(UsageStatsManager.INTERVAL_DAILY);
                     Collections.sort(usageStatsList, new LastTimeLaunchedComparatorDesc());
                     updateAppsList(usageStatsList);
                 }
@@ -118,10 +117,10 @@ public class AppusageFragment extends Fragment {
     public List<UsageStats> getUsageStatistics(int intervalType) {
         // Get the app statistics since one year ago from the current time.
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.YEAR, -1);
+        cal.add(Calendar.DATE, -1);
 
         List<UsageStats> queryUsageStats = mUsageStatsManager
-                .queryUsageStats(intervalType, cal.getTimeInMillis(),
+                .queryUsageStats(UsageStatsManager.INTERVAL_DAILY, cal.getTimeInMillis(),
                         System.currentTimeMillis());
 
         if (queryUsageStats.size() == 0) {
@@ -193,9 +192,9 @@ public class AppusageFragment extends Fragment {
     //VisibleForTesting
     static enum StatsUsageInterval {
         DAILY("Daily", UsageStatsManager.INTERVAL_DAILY),
-        WEEKLY("Weekly", UsageStatsManager.INTERVAL_WEEKLY),
-        MONTHLY("Monthly", UsageStatsManager.INTERVAL_MONTHLY),
-        YEARLY("Yearly", UsageStatsManager.INTERVAL_YEARLY);
+        WEEKLY("Weekly", UsageStatsManager.INTERVAL_DAILY),
+        MONTHLY("Monthly", UsageStatsManager.INTERVAL_DAILY),
+        YEARLY("Yearly", UsageStatsManager.INTERVAL_DAILY);
 
         private int mInterval;
         private String mStringRepresentation;
@@ -203,11 +202,13 @@ public class AppusageFragment extends Fragment {
         StatsUsageInterval(String stringRepresentation, int interval) {
             mStringRepresentation = stringRepresentation;
             mInterval = interval;
+            Log.i(TAG, String.valueOf(interval));
         }
 
         static StatsUsageInterval getValue(String stringRepresentation) {
             for (StatsUsageInterval statsUsageInterval : values()) {
                 if (statsUsageInterval.mStringRepresentation.equals(stringRepresentation)) {
+                    Log.i(TAG, String.valueOf(statsUsageInterval));
                     return statsUsageInterval;
                 }
             }

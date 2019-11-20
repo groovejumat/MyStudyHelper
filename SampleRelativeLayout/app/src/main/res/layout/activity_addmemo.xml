@@ -28,7 +28,6 @@
         android:layout_marginRight="5dp"
         android:layout_weight="8"
         android:ems="10"
-        android:inputType="textPersonName"
         android:singleLine="false"
         android:text="메모내용"
         android:textSize="15sp" />

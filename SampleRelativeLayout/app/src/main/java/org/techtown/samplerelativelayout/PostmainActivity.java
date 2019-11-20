@@ -26,6 +26,9 @@ public class PostmainActivity extends AppCompatActivity {
     //어댑터 종류 설정하기//
     private ArrayList<Movie> items = new ArrayList<>();
     private MovieAdapter adapter = new MovieAdapter(items);
+    boolean Onsearch = false;
+
+
 
 
     ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -51,21 +54,30 @@ public class PostmainActivity extends AppCompatActivity {
         //searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
             @Override
             public boolean onQueryTextSubmit(String query) {
+                Onsearch = true;
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                Onsearch = true;
                 Log.e("LOG", newText);
                 Log.e("LOG", "검색 중인 글자 확인하기.");
                 adapter.getFilter().filter(newText);
                 Log.e("LOG", "검색기능이 실행되어졌음.");
                 return false;
             }
-
-
+        });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                Onsearch = false;
+                Log.e("LOG", "클로즈 버튼을 눌렸음.");
+                return false;
+            }
         });
         return true;
     }

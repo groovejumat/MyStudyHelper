@@ -60,7 +60,20 @@ public class UsageListAdapter extends RecyclerView.Adapter<UsageListAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        if(mCustomUsageStatsList.get(position).usageStats.getTotalTimeInForeground()!=0) {
+//        if(mCustomUsageStatsList.get(position).usageStats.getTotalTimeInForeground()>=10000) {
+//            viewHolder.getPackageName().setText(
+//                    mCustomUsageStatsList.get(position).usageStats.getPackageName());
+//            long lastTimeUsed = mCustomUsageStatsList.get(position).usageStats.getLastTimeUsed();
+//            long foregroundTimeUsed = mCustomUsageStatsList.get(position).usageStats.getTotalTimeInForeground();
+//
+//            System.out.println(mTimeFormat.format(mCustomUsageStatsList.get(position).usageStats.getTotalTimeInForeground()));
+//            //viewHolder.getLastTimeUsed().setText(mDateFormat.format(new Date(lastTimeUsed)));
+//            viewHolder.getLastTimeUsed().setText(mTimeFormat.format(mCustomUsageStatsList.get(position).usageStats.getTotalTimeInForeground())+"    마지막사용시각"
+//                    + mDateFormat.format(new Date(lastTimeUsed)));
+//            viewHolder.getAppIcon().setImageDrawable(mCustomUsageStatsList.get(position).appIcon);
+//        }
+
+
             viewHolder.getPackageName().setText(
                     mCustomUsageStatsList.get(position).usageStats.getPackageName());
             long lastTimeUsed = mCustomUsageStatsList.get(position).usageStats.getLastTimeUsed();
@@ -68,9 +81,10 @@ public class UsageListAdapter extends RecyclerView.Adapter<UsageListAdapter.View
 
             System.out.println(mTimeFormat.format(mCustomUsageStatsList.get(position).usageStats.getTotalTimeInForeground()));
             //viewHolder.getLastTimeUsed().setText(mDateFormat.format(new Date(lastTimeUsed)));
-            viewHolder.getLastTimeUsed().setText(mTimeFormat.format(mCustomUsageStatsList.get(position).usageStats.getTotalTimeInForeground()));
+            viewHolder.getLastTimeUsed().setText(mTimeFormat.format(mCustomUsageStatsList.get(position).usageStats.getTotalTimeInForeground())+"    마지막사용시각"
+                    + mDateFormat.format(new Date(lastTimeUsed)));
             viewHolder.getAppIcon().setImageDrawable(mCustomUsageStatsList.get(position).appIcon);
-        }
+
     }
 
     @Override

@@ -36,16 +36,16 @@ public class EditmemoActivity extends AppCompatActivity {
         final EditText editTextTitle = (EditText)findViewById(R.id.memo_title_ed);
         editTextTitle.setEnabled(false);
 
-        final TextView editTextKorean = (TextView)findViewById(R.id.memo_time_ed);
-        final TextView editTextEnglish = (TextView)findViewById(R.id.memo_date_ed);
+//        final TextView editTextKorean = (TextView)findViewById(R.id.memo_time_ed);
+//        final TextView editTextEnglish = (TextView)findViewById(R.id.memo_date_ed);
 
         final EditText editTextContext = (EditText) findViewById(R.id.memo_context_ed);
         editTextContext.setEnabled(false);
 
 
         editTextTitle.setText(dic.getId()); //제목
-        editTextEnglish.setText(dic.getEnglish()); //날짜 및 시간
-        editTextKorean.setText(dic.getKorean()); //날짜 및 시간
+//        editTextEnglish.setText(dic.getEnglish()); //날짜 및 시간
+//        editTextKorean.setText(dic.getKorean()); //날짜 및 시간
         editTextContext.setText(dic.getContext()); //내용 세팅
 
         Button buttonInsertA = (Button) findViewById(R.id.modify_confirm);
@@ -56,8 +56,8 @@ public class EditmemoActivity extends AppCompatActivity {
                 String title = editTextTitle.getText().toString();
                 System.out.println(title);
 
-                String english = editTextEnglish.getText().toString();
-                System.out.println(english);
+//                String english = editTextEnglish.getText().toString();
+//                System.out.println(english);
 
                 String context = editTextContext.getText().toString();
                 System.out.println(context);
@@ -66,7 +66,7 @@ public class EditmemoActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), "메모가 수정 되었습니다.(메모 수정 객체 및 포지션 값 전달)", Toast.LENGTH_LONG).show();
 
-                final Dictionary putobject= new Dictionary(title,english,"test");
+                final Dictionary putobject= new Dictionary(title,"test","test");
                 putobject.setContext(context);
 
                 intent.putExtra("chagedata", putobject);

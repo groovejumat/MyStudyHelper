@@ -10,18 +10,11 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorSky"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="@dimen/activity_horizontal_margin">
 
-
-        <ImageView
-            android:layout_width="@dimen/logo_w_h"
-            android:layout_height="@dimen/logo_w_h"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="30dp"
-            android:src="@mipmap/ic_launcher" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -64,8 +57,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@color/colorAccent"
-            android:text="@string/action_sign_in_short"
+            android:background="#B1E4FA"
+            android:text="회원등록"
             android:textColor="@android:color/black"
             android:textStyle="bold" />
 
@@ -74,8 +67,8 @@
             android:layout_width="379dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
-            android:background="@null"
-            android:text="@string/btn_forgot_password"
+            android:background="#B1E4FA"
+            android:text="암호를 잃어버리셨나요?"
             android:textAllCaps="false"
             android:textColor="@color/colorAccent" />
 
@@ -86,8 +79,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
-            android:background="@null"
-            android:text="@string/btn_link_to_login"
+            android:background="#B1E4FA"
+            android:text="로그인하기"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15dp" />
