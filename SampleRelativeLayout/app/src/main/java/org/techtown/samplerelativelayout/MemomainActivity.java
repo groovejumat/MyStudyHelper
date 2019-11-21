@@ -34,10 +34,16 @@ public class MemomainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo_check);
 
+        //리사이클러뷰 뷰간 간격 조정
+        RecyclerDecoration spaceDecoration = new RecyclerDecoration(20);
+
+
+
         //생성할 릴사이클러 뷰의 아이디 값을 세팅하고, 레이아웃 매니저를 통해서 해당 리사이클러뷰를 새로 진행 방식으로 만든다.
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_main_list);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mRecyclerView.addItemDecoration(spaceDecoration);
 
         //어레이 리스트 생성
         mArrayList = new ArrayList<>();

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorSky"
     tools:context=".MainActivity">
 
 
@@ -12,7 +13,7 @@
         android:id="@+id/recyclerview_main_list"
         android:layout_width="match_parent"
         android:layout_height="546dp"
-        android:layout_marginBottom="13dp"
+        android:layout_marginBottom="0dp"
         android:scrollbarFadeDuration="0"
         android:scrollbarSize="5dp"
         android:scrollbarThumbVertical="@android:color/darker_gray"
@@ -22,6 +23,8 @@
         android:id="@+id/button_insert_activity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="#B1E4FA"
         android:text="메모추가" />
 
 

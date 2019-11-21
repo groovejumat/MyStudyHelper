@@ -98,9 +98,9 @@ public class LoginActivity extends AppCompatActivity {
                                 if (!task.isSuccessful()) {
                                     // there was an error
                                     if (password.length() < 6) {
-                                        inputPassword.setError(getString(R.string.minimum_password));
+                                        inputPassword.setError("암호길이가 너무 짧습니다. 6자리이상을 입력해 주세요.");
                                     } else {
-                                        Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
+                                        Toast.makeText(LoginActivity.this, "로그인에 실패하였습니다.", Toast.LENGTH_LONG).show();
                                     }
                                 } else {
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);

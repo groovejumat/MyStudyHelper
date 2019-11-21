@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorSky"
     android:orientation="vertical"
     tools:context=".EditmemoActivity">
 
@@ -35,6 +36,9 @@
         android:id="@+id/edit_mode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="#B1E4FA"
         android:text="수정하기" />
 
     <Button
@@ -43,6 +47,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:background="#B1E4FA"
         android:text="저장하기" />
 
 </LinearLayout>
