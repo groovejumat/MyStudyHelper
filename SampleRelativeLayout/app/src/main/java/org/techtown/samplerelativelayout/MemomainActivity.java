@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -19,13 +20,64 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class MemomainActivity extends AppCompatActivity{
 
-    private ArrayList<Dictionary> mArrayList;
+    private ArrayList<Dictionary> mArrayList = new ArrayList<>();
+    private ArrayList<Dictionary> sharedmArrayList = new ArrayList<>();
+
+    private ArrayList<DictionarySave> SavedList = new ArrayList<>();
+
     private MemoAdapter mAdapter;
     private int count = -1;
+
+
+    //온스탑에서 생명주기를 통해 셰어드 프리퍼런스로 저장작업을 처리합니다.
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(mArrayList.size()>0) {
+            SavedList=new ArrayList<>();
+            for (int i = 0; i < mArrayList.size(); i++) {
+                //담는 데이터의 초기화//
+                mArrayList.get(i).getId();
+                Log.e("태그", "현재 : " + mArrayList.get(i).getId());
+                Log.e("태그", "현재 : " + mArrayList.get(i).getContext());
+                Log.e("태그", "현재 : " + mArrayList.get(i).getKorean());
+                Log.e("태그", "현재 : " + mArrayList.get(i).getEnglish());
+                DictionarySave Saveinfo = new DictionarySave(mArrayList.get(i).getId(), mArrayList.get(i).getContext(), mArrayList.get(i).getKorean(), mArrayList.get(i).getEnglish());
+                SavedList.add(Saveinfo);
+                //저장되어진 저장용 어레이리스트의 데이터를 확인.
+            }
+            Log.e("태그", "현재 저장될 SavedList의 갯수는 : " + SavedList.size());
+        }
+
+        // Activity가 종료되기 전에 저장한다.
+        SharedPreferences sharedPreferences = getSharedPreferences("sMemo",MODE_PRIVATE);
+
+        //저장을 하기위해 editor를 이용하여 값을 저장시켜준다.
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String data_json = gson.toJson(SavedList);  // 사용자가 입력한 저장할 데이터
+        editor.putString("saved_data",data_json); // key, value를 이용하여 저장하는 형태
+        //다양한 형태의 변수값을 저장할 수 있다.
+        Log.e("LOG", data_json);
+
+        Type type = new TypeToken<ArrayList<Dictionary>>() {}.getType();
+
+        if(data_json.length()>10) {
+            SavedList = gson.fromJson(data_json, type);
+        }
+        Log.e("LOG", "해당 데이터의 사이즈는 : " + String.valueOf(SavedList.size()));
+
+        //최종 커밋
+        editor.commit();
+    }
 
 
     @Override
@@ -33,6 +85,28 @@ public class MemomainActivity extends AppCompatActivity{
         Log.d("msg","11 OnCreate!");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo_check);
+
+
+        //저장된 값을 불러오기 위해 같은 네임파일을 찾음.
+        SharedPreferences sf = getSharedPreferences("sMemo",MODE_PRIVATE);
+        //text라는 key에 저장된 값이 있는지 확인. 아무값도 들어있지 않으면 ""를 반환
+        String data_json = sf.getString("saved_data","");
+        Log.e("태그", "저장되어진 json 데이터 값 : " + data_json);
+        Type type = new TypeToken<ArrayList<DictionarySave>>() {}.getType();
+        Gson gson = new Gson();
+        SavedList=gson.fromJson(data_json,type);
+        Log.e("태그", "저장되어진 리스트 사이즈 값 " + SavedList.size());
+        if(SavedList.size()>0){
+            for(int i = 0; i<SavedList.size(); i++){
+                Dictionary savedata= new Dictionary(SavedList.get(i).theme,SavedList.get(i).content,SavedList.get(i).date,SavedList.get(i).time);
+                mArrayList.add(savedata);
+            }
+            Log.e("태그", "저장되어진 리스트 사이즈 값 " + mArrayList.size());
+        }
+        //mArrayList=sharedmArrayList;
+        //Log.e("태그", "저장되어진 json 의 갯수 : " + sharedmArrayList.size());
+        //불러온 값 덮어 씌우기
+        //images=imagesshared;
 
         //리사이클러뷰 뷰간 간격 조정
         RecyclerDecoration spaceDecoration = new RecyclerDecoration(20);
@@ -46,21 +120,9 @@ public class MemomainActivity extends AppCompatActivity{
         mRecyclerView.addItemDecoration(spaceDecoration);
 
         //어레이 리스트 생성
-        mArrayList = new ArrayList<>();
+        //mArrayList = new ArrayList<>();
         Dictionary dict = new Dictionary("시연용메모", "시연용", "시연용" );
         dict.setContext("이 메모는 시연용 입니다.");
-        mArrayList.add(dict);
-        mArrayList.add(dict);
-        mArrayList.add(dict);
-        mArrayList.add(dict);
-        mArrayList.add(dict);
-        mArrayList.add(dict);
-        mArrayList.add(dict);
-        mArrayList.add(dict);
-        mArrayList.add(dict);
-        mArrayList.add(dict);
-        mArrayList.add(dict);
-
 
 
 
@@ -89,6 +151,7 @@ public class MemomainActivity extends AppCompatActivity{
             System.out.println(getobject.getContext());
             mArrayList.add(0,getobject);
             mAdapter.notifyItemInserted(0);
+//            mRecyclerView.scrollToPosition(0);
         }
 
         //변경된 데이터가 존재하면(activity_deit_memo로 부터 전달 받음)

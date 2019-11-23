@@ -57,7 +57,7 @@
                     android:background="#00070000"
                     android:text="실제사용시간"
                     android:textColor="#090000"
-                    android:textSize="10sp" />
+                    android:textSize="13dp" />
 
                 <TextView
                     android:id="@+id/textview_last_time_used"
@@ -66,7 +66,7 @@
                     android:layout_marginTop="5dp"
                     android:background="#00070000"
                     android:textColor="#090000"
-                    android:textSize="10sp" />
+                    android:textSize="13dp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

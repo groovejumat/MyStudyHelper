@@ -17,8 +17,8 @@
         android:layout_marginRight="5dp"
         android:layout_marginBottom="0dp"
         android:ems="10"
+        android:hint="제목을 입력해 주세요."
         android:inputType="textPersonName"
-        android:text="제목"
         android:textSize="20dp" />
 
     <EditText
@@ -29,8 +29,8 @@
         android:layout_marginRight="5dp"
         android:layout_weight="8"
         android:ems="10"
+        android:hint="내용을 입력해 주세요."
         android:singleLine="false"
-        android:text="메모내용"
         android:textSize="15sp" />
 
     <Button

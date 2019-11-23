@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -19,16 +20,48 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class PostmainActivity extends AppCompatActivity {
 
     //어댑터 종류 설정하기//
     private ArrayList<Movie> items = new ArrayList<>();
+    private ArrayList<Movie> saveditems = new ArrayList<>();
     private ArrayList<Movie> getitems = new ArrayList<>();
     private MovieAdapter adapter = new MovieAdapter(items);
 
     boolean Onsearch = false;
+
+    //온스탑에서 생명주기를 통해 셰어드 프리퍼런스로 저장작업을 처리합니다.
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        // Activity가 종료되기 전에 저장한다.
+        SharedPreferences sharedPreferences = getSharedPreferences("clipboard",MODE_PRIVATE);
+
+        //저장을 하기위해 editor를 이용하여 값을 저장시켜준다.
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String data_json = gson.toJson(items);  // 사용자가 입력한 저장할 데이터
+        editor.putString("saved_data",data_json); // key, value를 이용하여 저장하는 형태
+        //다양한 형태의 변수값을 저장할 수 있다.
+        Log.e("LOG", data_json);
+
+        Type type = new TypeToken<ArrayList<Movie>>() {}.getType();
+
+        if(data_json.length()>10) {
+            saveditems = gson.fromJson(data_json, type);
+        }
+        Log.e("LOG", "해당 데이터의 사이즈는 : " + String.valueOf(saveditems.size()));
+
+        //최종 커밋
+        editor.commit();
+    }
 
 
 
@@ -170,7 +203,20 @@ public class PostmainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_postmain);
-        fillbasicitems();
+
+        //////////////////셰어드 프리퍼런스의 처리///////////////////
+        //저장된 값을 불러오기 위해 같은 네임파일을 찾음.
+        SharedPreferences sf = getSharedPreferences("clipboard",MODE_PRIVATE);
+        //text라는 key에 저장된 값이 있는지 확인. 아무값도 들어있지 않으면 ""를 반환
+        String data_json = sf.getString("saved_data","");
+        Log.e("태그", "저장되어진 json 데이터 값 : " + data_json);
+        Type type = new TypeToken<ArrayList<Movie>>() {}.getType();
+        Gson gson = new Gson();
+        saveditems=gson.fromJson(data_json,type);
+        items=saveditems;
+        Log.e("태그", "저장되어진 json 의 갯수 : " + saveditems.size());
+
+        //fillbasicitems();
         //(데이터를 뷰모드 변경시에 다시 세팅하기 위해서 만든 기능)
         Intent intent = getIntent();
         int viewmode = intent.getIntExtra("number",0);
@@ -186,6 +232,9 @@ public class PostmainActivity extends AppCompatActivity {
         adapter = new MovieAdapter(items);
         //recycleView 초기화
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
+
+
+
 
 
 

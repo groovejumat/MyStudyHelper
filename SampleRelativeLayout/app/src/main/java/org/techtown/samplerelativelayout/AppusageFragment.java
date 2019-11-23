@@ -149,12 +149,14 @@ public class AppusageFragment extends Fragment {
     void updateAppsList(List<UsageStats> usageStatsList) {
         List<CustomUsageStats> customUsageStatsList = new ArrayList<>();
         for (int i = 0; i < usageStatsList.size(); i++) {
+            Long usagetime= Long.valueOf(0);
             CustomUsageStats customUsageStats = new CustomUsageStats();
             customUsageStats.usageStats = usageStatsList.get(i);
 
             try {
                 Drawable appIcon = getActivity().getPackageManager()
                         .getApplicationIcon(customUsageStats.usageStats.getPackageName());
+                usagetime = customUsageStats.usageStats.getTotalTimeInForeground();
                 customUsageStats.appIcon = appIcon;
             } catch (PackageManager.NameNotFoundException e) {
                 Log.w(TAG, String.format("App Icon is not found for %s",
@@ -165,7 +167,9 @@ public class AppusageFragment extends Fragment {
 //            if(usageStatsList.get(i).getTotalTimeForegroundServiceUsed()!=0) {
 //                System.out.println("Ok");
 //            }
-            customUsageStatsList.add(customUsageStats);
+            if(usagetime>10000) {
+                customUsageStatsList.add(customUsageStats);
+            }
         }
         mUsageListAdapter.setCustomUsageStatsList(customUsageStatsList);
         mUsageListAdapter.notifyDataSetChanged();

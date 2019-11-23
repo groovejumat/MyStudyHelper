@@ -73,18 +73,17 @@ public class UsageListAdapter extends RecyclerView.Adapter<UsageListAdapter.View
 //            viewHolder.getAppIcon().setImageDrawable(mCustomUsageStatsList.get(position).appIcon);
 //        }
 
-
             viewHolder.getPackageName().setText(
                     mCustomUsageStatsList.get(position).usageStats.getPackageName());
             long lastTimeUsed = mCustomUsageStatsList.get(position).usageStats.getLastTimeUsed();
             long foregroundTimeUsed = mCustomUsageStatsList.get(position).usageStats.getTotalTimeInForeground();
+            //long foregroundTimeUsed2 = mCustomUsageStatsList.get(position).usageStats.getLastTimeForegroundServiceUsed();
 
             System.out.println(mTimeFormat.format(mCustomUsageStatsList.get(position).usageStats.getTotalTimeInForeground()));
             //viewHolder.getLastTimeUsed().setText(mDateFormat.format(new Date(lastTimeUsed)));
-            viewHolder.getLastTimeUsed().setText(mTimeFormat.format(mCustomUsageStatsList.get(position).usageStats.getTotalTimeInForeground())+"    마지막사용시각"
+            viewHolder.getLastTimeUsed().setText(" "+mTimeFormat.format(mCustomUsageStatsList.get(position).usageStats.getTotalTimeInForeground())+"    마지막사용시각 "
                     + mDateFormat.format(new Date(lastTimeUsed)));
             viewHolder.getAppIcon().setImageDrawable(mCustomUsageStatsList.get(position).appIcon);
-
     }
 
     @Override

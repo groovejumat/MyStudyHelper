@@ -37,7 +37,7 @@ public class Dictionary implements Serializable {
         Context = context;
     }
 
-    public void setEnglish(String english) {
+    public void setEnglish() {
         English = format_time.format(timedate);
     }
 
@@ -45,7 +45,7 @@ public class Dictionary implements Serializable {
         return Korean;
     }
 
-    public void setKorean(String korean) {
+    public void setKorean() {
         Korean = format_date.format(timedate);
     }
 
@@ -55,6 +55,13 @@ public class Dictionary implements Serializable {
         Korean = format_date.format(timedate);
         this.time = format_time.format(timedate);
         this.date = format_date.format(timedate);
+    }
+
+    public Dictionary(String theme, String content, String date, String time) {
+        this.id = theme;
+        this.Context = content;
+        this.Korean = date;
+        this.English = time;
     }
 }
 

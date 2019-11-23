@@ -115,7 +115,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="포스팅하기"
+        android:text="클립보드"
         android:textColor="#000000"
         android:textColorLink="#000000"
         android:textSize="20dp"
