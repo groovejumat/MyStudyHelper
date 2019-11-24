@@ -23,8 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:alpha="0.6"
-            android:background="#030303"
+
+            android:background="#000000"
             android:orientation="vertical"
             android:paddingLeft="16dp"
             android:paddingTop="8dp"

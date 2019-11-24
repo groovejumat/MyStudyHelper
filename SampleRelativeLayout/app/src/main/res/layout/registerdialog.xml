@@ -1,59 +1,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="#B0F7FF"
     android:baselineAligned="false"
     android:orientation="vertical"
     android:padding="10dip">
 
-    <TextView
-        android:id="@+id/textView4"
+    <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="이미지 url"
-        android:textColor="#120000" />
-
-    <EditText
-        android:id="@+id/image_url"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:textColor="#000"
-        android:textSize="15dp" />
+        android:layout_height="135dp"
+        app:srcCompat="@drawable/register" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="제목"
-        android:textColor="#120000" />
+        android:text="함께 공부하기 기능을 사용해보세요!"
+        android:textColor="#120000"
+        android:textSize="20dp" />
 
-    <EditText
-        android:id="@+id/post_name"
+    <CheckBox
+        android:id="@+id/checkBox8"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginBottom="10dp"
-        android:textColor="#000"
-        android:textSize="15dp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="링크 url"
-        android:textColor="#120000" />
-
-    <EditText
-        android:id="@+id/url_link"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:textColor="#000"
-        android:textSize="15dp" />
+        android:text="해당 메시지 더 이상 보지 않기" />
 
     <LinearLayout
-        android:layout_width="390dp"
-        android:layout_height="45dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 
@@ -65,7 +43,7 @@
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="#B1E4FA"
-            android:text="취소"
+            android:text="나중에 등록할께요"
             android:textAlignment="center" />
 
         <Button
@@ -76,7 +54,7 @@
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="#B1E4FA"
-            android:text="등록"
+            android:text="계정등록하기"
             android:textAlignment="center" />
     </LinearLayout>
 

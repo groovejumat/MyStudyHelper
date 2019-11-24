@@ -51,6 +51,25 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/repassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:hint="Repassword"
+                android:imeActionId="6"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="#040000" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <Button
             android:id="@+id/sign_up_button"
             style="?android:textAppearanceSmall"

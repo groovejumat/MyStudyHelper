@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private ProgressBar progressBar;
     private Button btnSignup, btnLogin, btnReset;
+    private boolean login = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,9 +101,10 @@ public class LoginActivity extends AppCompatActivity {
                                     if (password.length() < 6) {
                                         inputPassword.setError("암호길이가 너무 짧습니다. 6자리이상을 입력해 주세요.");
                                     } else {
-                                        Toast.makeText(LoginActivity.this, "로그인에 실패하였습니다.", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(LoginActivity.this, "로그인에 실패하였습니다. 회원정보를 다시 확인해주세요.", Toast.LENGTH_LONG).show();
                                     }
                                 } else {
+                                    Toast.makeText(LoginActivity.this, "로그인 하였습니다.", Toast.LENGTH_LONG).show();
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
                                     finish();

@@ -37,7 +37,7 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.CustomViewHold
         public CustomViewHolder(View view) {
             super(view);
             Log.v("태그","CustomViewHolder 생성자가 호출이 되었습니다.");
-            this.id = (TextView) view.findViewById(R.id.id_listitem);
+            this.id = (TextView) view.findViewById(R.id.id_list_item);
             this.english = (TextView) view.findViewById(R.id.english_listitem);
             this.korean = (TextView) view.findViewById(R.id.korean_listitem);
 

@@ -2,10 +2,12 @@ package org.techtown.samplerelativelayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -14,6 +16,31 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final Dialog dialog2 = new Dialog(MainActivity.this);
+        dialog2.setContentView(R.layout.registerdialog);
+        //final EditText text1 = (EditText) dialog2.findViewById(R.id.image_url);
+
+        Button dbutton1 = (Button) dialog2.findViewById(R.id.cancel);
+        dbutton1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+                dialog2.dismiss();   //다이얼로그를 닫는 메소드입니다.
+            }
+        });
+
+
+        Button dbutton2 = (Button) dialog2.findViewById(R.id.ok);
+        dbutton2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),LoginmainActivity.class);
+                startActivity(intent);//액티비티 띄우기
+            }
+        });
+
+        dialog2.show();
 
 
 
@@ -74,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),AppusagemainActivity.class);
+                Intent intent = new Intent(getApplicationContext(),StudyCalendarActivity.class);
                 startActivity(intent);//액티비티 띄우기
             }
         });

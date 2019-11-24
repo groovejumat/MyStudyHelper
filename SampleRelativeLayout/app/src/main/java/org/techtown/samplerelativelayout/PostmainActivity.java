@@ -132,7 +132,7 @@ public class PostmainActivity extends AppCompatActivity {
             //커스텀 다이얼로그 생성 후 띄우기//
             final Dialog dialog2 = new Dialog(PostmainActivity.this);
             dialog2.setContentView(R.layout.postdialog);
-            final EditText text1 = (EditText) dialog2.findViewById(R.id.image_url);
+            //final EditText text1 = (EditText) dialog2.findViewById(R.id.image_url);
             final EditText text2 = (EditText) dialog2.findViewById(R.id.post_name);
             final EditText text3 = (EditText) dialog2.findViewById(R.id.url_link);
 
@@ -149,10 +149,10 @@ public class PostmainActivity extends AppCompatActivity {
             button2.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
-                    String image_url = text1.getText().toString();
+                    //String image_url = text1.getText().toString();
                     String post_name = text2.getText().toString();
                     String url_link = text3.getText().toString();
-                    Movie m = new Movie(image_url,"의미없음",post_name,url_link);
+                    Movie m = new Movie("의미없음","의미없음",post_name,url_link);
                     items.add(m);
                     //참조용 데이터 리스트도 변경됌.
                     adapter.SearchDataReSet(items);
