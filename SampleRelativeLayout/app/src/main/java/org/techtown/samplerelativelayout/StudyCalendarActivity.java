@@ -156,28 +156,10 @@ public class StudyCalendarActivity extends AppCompatActivity {
 //                });
             }
         });
+    }
 
 
-        //엑티비티로 전달 후에 값저장하기 메모내용을 추가해주는 뷰이벤트 처리
-        final EditText todoText = (EditText)findViewById(R.id.addText);
-
-
-//        Button buttonInsertA = (Button) findViewById(R.id.addtodo);
-//        buttonInsertA.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view) {
-//                final String todotext = todoText.getText().toString();
-//                Log.e("태그", "추가된 텍스트의 내용" + todotext);
-//                if(todotext.length()>0) {
-//                    Todo item = new Todo(todotext, false);
-//                    mArrayList.add(item);
-//                    mAdapter.notifyDataSetChanged();
-//                    //mArrayList.clear();
-//                }
-//                else{
-//                    Toast.makeText(getApplicationContext(), "할일을 한글자 이상 입력해 주세요.", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
+    public void highlightCalendar(String text){
+        //해당 부분에서 달력 하이라이트 처리를 한다.
     }
 }

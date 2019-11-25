@@ -3,18 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/fragmentDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="선택되어진 날짜" />
-
-    <TextView
-        android:id="@+id/fragmentDate2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="현재 리사이클러뷰" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,6 +12,8 @@
             android:id="@+id/addText"
             android:layout_width="333dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:ems="10"
             android:hint="해당 날짜에 할 일을 입력해주세요."
@@ -32,20 +22,22 @@
 
         <Button
             android:id="@+id/addtodo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="계획추가" />
+            android:text="ADD" />
     </LinearLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_main_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="0dp"
-            android:scrollbarFadeDuration="0"
-            android:scrollbarSize="5dp"
-            android:scrollbarThumbVertical="@android:color/darker_gray"
-            android:scrollbars="vertical" />
+        android:id="@+id/recyclerview_main_list"
+        android:layout_width="401dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="0dp"
+        android:scrollbarFadeDuration="0"
+        android:scrollbarSize="5dp"
+        android:scrollbarThumbVertical="@android:color/darker_gray"
+        android:scrollbars="vertical" />
 </LinearLayout>

@@ -1,5 +1,6 @@
 package org.techtown.samplerelativelayout;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +14,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -53,8 +56,11 @@ public class FragmentDate extends Fragment {
         Log.e("태그","현재 셰어드 프리퍼런스에서 가지고 온 정보 확인 : " +  data_json);
         Type type = new TypeToken<ArrayList<Todo>>() {}.getType();
         Gson gson = new Gson();
-        if(data_json.length()>0) {
+        if(data_json.length()>5) {
             mArrayList = gson.fromJson(data_json, type);
+
+            //선택한 달력에 대해서 처리 할 것.
+            //((StudyCalendarActivity)getActivity()).
         }
         else{
             Log.e("태그","현재 가져온 키값에 대한 정보가 없습니다." +  Date );
@@ -69,8 +75,8 @@ public class FragmentDate extends Fragment {
 
         mAdapter.notifyDataSetChanged();
 
-        Datecheck = (TextView)getView().findViewById(R.id.fragmentDate);
-        Datecheck.setText(Date);
+        //Datecheck = (TextView)getView().findViewById(R.id.fragmentDate);
+        //Datecheck.setText(Date);
 
         //엑티비티로 전달 후에 값저장하기 메모내용을 추가해주는 뷰이벤트 처리
         final EditText todoText = (EditText)getView().findViewById(R.id.addText);
@@ -92,6 +98,40 @@ public class FragmentDate extends Fragment {
             }
         });
 
+
+        mRecyclerView.addOnItemTouchListener(new TodoAdapter.RecyclerTouchListener(getActivity(), mRecyclerView, new TodoAdapter.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+            }
+
+            @Override
+            public void onLongClick(View view, final int position) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                builder.setTitle("할일 목록을 삭제하시겠습니까?");
+
+
+                builder.setPositiveButton("아니오", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                builder.setNegativeButton("네", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mArrayList.remove(position);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+                Log.e("태그", String.valueOf(position)+"롱 클릭  호출됌.");
+            }
+        }));
 
 
     }
