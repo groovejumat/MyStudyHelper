@@ -1,6 +1,8 @@
 package org.techtown.samplerelativelayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,13 +34,16 @@ public class StudyCalendarActivity extends AppCompatActivity {
     private String curDate;
     private String Date;
 
+    private FragmentManager fragmentManager;
+    private FragmentDate fragmentDate;
+    private FragmentTransaction transaction;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_studycalender);
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_main_list);
-
-
         mAdapter = new TodoAdapter(mArrayList);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -63,20 +68,31 @@ public class StudyCalendarActivity extends AppCompatActivity {
             //내가 클릭을 하여 달력의 정보를 변경시켰을때.
             void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 SharedPreferences sharedPreferences = getSharedPreferences("CalendarData",MODE_PRIVATE);
-
                 //날짜 값을 세팅//
                 month = month+1;
                 Date=year+""+month+""+dayOfMonth;
-
                 //선택전의 날짜가 현재 클릭한 날짜로 바뀌어지고.
                 beforeDate=curDate;
                 Log.e("태그","선택전 날짜 : " +  String.valueOf(beforeDate));
                 //선택전 날짜에 대해서 어레이 리스트 처리를 하자.
 
-
                 //현재날짜가
                 curDate=Date;
                 Log.e("태그","선택후의 날짜 : " +  String.valueOf(curDate));
+
+
+                //테스트로 프래그먼트 생성하기//
+                fragmentManager = getSupportFragmentManager();
+
+                fragmentDate = new FragmentDate();
+                Bundle bundle = new Bundle();
+
+                //프래그먼트에 전달할 데이터를 세팅 : 현재 날짜 정보//
+                bundle.putString("dateinfo",curDate);
+                fragmentDate.setArguments(bundle);
+
+                transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.frameLayout, fragmentDate).commitAllowingStateLoss();
 
 
                 //기존에 있던 arraylist를 해당 날짜로 셰어드 프리퍼런스로 저장//
@@ -108,21 +124,19 @@ public class StudyCalendarActivity extends AppCompatActivity {
                 Log.e("태그", "저장되어진 json 데이터 값 : " + data_json);
                 Type type = new TypeToken<ArrayList<Todo>>() {}.getType();
                 gson = new Gson();
-                savedArrayList=gson.fromJson(data_json,type);
-                if(mArrayList!=null) {
-                    Log.e("태그", "불러져온 해당 날짜의 저장 갯수 : " + savedArrayList.size());
-                    mArrayList=savedArrayList;
-                    mAdapter.notifyDataSetChanged();
-                    //그리고 해당 값을 반영
-                }
-                else {
-                    Log.e("태그", "현재 저장되어져 있는 값이 없습니다.");
-                }
+//                savedArrayList=gson.fromJson(data_json,type);
+//                if(mArrayList!=null) {
+//                    Log.e("태그", "불러져온 해당 날짜의 저장 갯수 : " + savedArrayList.size());
+//                    mArrayList=savedArrayList;
+//                    mAdapter.notifyDataSetChanged();
+//                    //그리고 해당 값을 반영
+//                }
+//                else {
+//                    Log.e("태그", "현재 저장되어져 있는 값이 없습니다.");
+//                }
 
                 //엑티비티로 전달 후에 값저장하기 메모내용을 추가해주는 뷰이벤트 처리
                 final EditText todoText = (EditText)findViewById(R.id.addText);
-
-
                 Button buttonInsertA = (Button) findViewById(R.id.addtodo);
                 buttonInsertA.setOnClickListener(new View.OnClickListener(){
                     @Override
