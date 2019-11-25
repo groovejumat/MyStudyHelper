@@ -43,12 +43,12 @@ public class StudyCalendarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_studycalender);
-        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_main_list);
-        mAdapter = new TodoAdapter(mArrayList);
-        mRecyclerView.setAdapter(mAdapter);
-
-        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+//        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_main_list);
+//        mAdapter = new TodoAdapter(mArrayList);
+//        mRecyclerView.setAdapter(mAdapter);
+//
+//        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
+//        mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
 
         final CalendarView calendar = (CalendarView)findViewById(R.id.calendarView);
@@ -107,12 +107,12 @@ public class StudyCalendarActivity extends AppCompatActivity {
                 }
 
 
-                if(mArrayList!=null) {
-                    //초기화 시킴//
-                    mArrayList.clear();
-                    //mAdapter = new TodoAdapter(mArrayList);
-                    mAdapter.notifyDataSetChanged();
-                }
+//                if(mArrayList!=null) {
+//                    //초기화 시킴//
+//                    mArrayList.clear();
+//                    //mAdapter = new TodoAdapter(mArrayList);
+//                    mAdapter.notifyDataSetChanged();
+//                }
 
 
                 //해당 날짜에 대해서 저장된 것을 가지고 오기
@@ -136,24 +136,24 @@ public class StudyCalendarActivity extends AppCompatActivity {
 //                }
 
                 //엑티비티로 전달 후에 값저장하기 메모내용을 추가해주는 뷰이벤트 처리
-                final EditText todoText = (EditText)findViewById(R.id.addText);
-                Button buttonInsertA = (Button) findViewById(R.id.addtodo);
-                buttonInsertA.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View view) {
-                        final String todotext = todoText.getText().toString();
-                        Log.e("태그", "추가된 텍스트의 내용" + todotext);
-                        if(todotext.length()>0) {
-                            Todo item = new Todo(todotext, false);
-                            mArrayList.add(item);
-                            mAdapter.notifyDataSetChanged();
-                            //mArrayList.clear();
-                        }
-                        else{
-                            Toast.makeText(getApplicationContext(), "할일을 한글자 이상 입력해 주세요.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+//                final EditText todoText = (EditText)findViewById(R.id.addText);
+//                Button buttonInsertA = (Button) findViewById(R.id.addtodo);
+//                buttonInsertA.setOnClickListener(new View.OnClickListener(){
+//                    @Override
+//                    public void onClick(View view) {
+//                        final String todotext = todoText.getText().toString();
+//                        Log.e("태그", "추가된 텍스트의 내용" + todotext);
+//                        if(todotext.length()>0) {
+//                            Todo item = new Todo(todotext, false);
+//                            mArrayList.add(item);
+//                            mAdapter.notifyDataSetChanged();
+//                            //mArrayList.clear();
+//                        }
+//                        else{
+//                            Toast.makeText(getApplicationContext(), "할일을 한글자 이상 입력해 주세요.", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
             }
         });
 
