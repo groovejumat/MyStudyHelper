@@ -96,6 +96,9 @@ public class FragmentDate extends Fragment {
 
                     mAdapter.notifyDataSetChanged();
                     //mArrayList.clear();
+
+                    //텍스트뷰 초기화
+                    todoText.setText("");
                 }
                 else{
                     Toast.makeText(getContext(), "할일을 한글자 이상 입력해 주세요.", Toast.LENGTH_SHORT).show();
@@ -117,7 +120,7 @@ public class FragmentDate extends Fragment {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("할 일 편집하기");
                 builder.setView(edittext);
-                edittext.setHint(mArrayList.get(position).todo);
+                edittext.setText(mArrayList.get(position).todo);
 
                 builder.setPositiveButton("수정완료", new DialogInterface.OnClickListener() {
                     @Override
