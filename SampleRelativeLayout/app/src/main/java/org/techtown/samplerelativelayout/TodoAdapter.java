@@ -1,6 +1,7 @@
 package org.techtown.samplerelativelayout;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.GestureDetector;
@@ -95,6 +96,12 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
                     items.get(pos).setCheckbox(isChecked);
                     Log.e("LOG", "해당 부분이 변경 되어진 것을 확인.");
                     Log.e("LOG", "상태 postion의 값 : " + pos + "체크박스의 상태 : " + items.get(pos).isCheckbox());
+                    if(items.get(pos).isCheckbox()==true){
+                        docontent.setTextColor(Color.GRAY);
+                    }
+                    else{
+                        docontent.setTextColor(Color.BLACK);
+                    }
                     //notifyDataSetChanged();
                 }
             });

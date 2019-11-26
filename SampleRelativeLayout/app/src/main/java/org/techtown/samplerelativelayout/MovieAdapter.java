@@ -159,12 +159,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull MovieAdapter.ViewHolder viewHolder, int position) {
 
         Movie item = items.get(position);
-        Glide.with(viewHolder.itemView.getContext())
-                .load(item.getUrl())
-                .into(viewHolder.ivMovie);
-
-
-
+//        Glide.with(viewHolder.itemView.getContext())
+//                .load(item.getUrl())
+//                .into(viewHolder.ivMovie);
         if (item.getUrl().isEmpty()) {
             Glide.with(viewHolder.itemView.getContext())
                     .load(item.getUrl())
