@@ -1,5 +1,7 @@
 package org.techtown.samplerelativelayout;
 
+import android.text.Editable;
+
 public class Todo {
     //아이템의 해야할 내용과
     String todo;

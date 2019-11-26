@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorSky"
+    android:background="#FFFFFF"
     tools:context=".MainActivity">
 
     <EditText
@@ -24,7 +24,7 @@
         android:layout_alignTop="@+id/edit_text_input"
         android:layout_toEndOf="@+id/edit_text_input"
         android:layout_toRightOf="@+id/edit_text_input"
-        android:background="#B1E4FA"
+        android:background="#CECECE"
         android:text="Set" />
 
     <TextView
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/text_view_countdown"
         android:layout_centerHorizontal="true"
-        android:background="#B1E4FA"
+        android:background="#CECECE"
         android:text="start" />
 
     <Button
@@ -55,7 +55,7 @@
         android:layout_marginLeft="11dp"
         android:layout_toEndOf="@+id/button_start_pause"
         android:layout_toRightOf="@+id/button_start_pause"
-        android:background="#B1E4FA"
+        android:background="#CECECE"
         android:text="reset"
         android:visibility="invisible"
         tools:visibility="visible" />

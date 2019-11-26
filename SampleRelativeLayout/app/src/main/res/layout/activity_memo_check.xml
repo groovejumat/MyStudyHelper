@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#DCDCDC"
     android:orientation="vertical"
-    android:background="@color/colorSky"
     tools:context=".MainActivity">
 
 
@@ -24,8 +24,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:background="#B1E4FA"
-        android:text="메모추가" />
+        android:background="#727272"
+        android:text="메모추가"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp" />
 
 
 </LinearLayout>

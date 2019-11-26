@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B0F7FF"
+    android:background="#FFFFFF"
     android:baselineAligned="false"
     android:orientation="vertical"
     android:padding="10dip">
@@ -65,7 +65,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:background="#B1E4FA"
+            android:background="#CECECE"
             android:text="취소"
             android:textAlignment="center" />
 
@@ -76,7 +76,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:background="#B1E4FA"
+            android:background="#CECECE"
             android:text="등록"
             android:textAlignment="center" />
     </LinearLayout>

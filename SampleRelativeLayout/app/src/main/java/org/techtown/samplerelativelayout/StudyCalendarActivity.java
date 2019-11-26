@@ -16,6 +16,7 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -49,7 +50,10 @@ public class StudyCalendarActivity extends AppCompatActivity {
 //
 //        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
 //        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        final Calendar test = Calendar.getInstance();
+        //mCalendarView testview = (CalendarView)findViewById(R.id.calen);
 
+        //mCalendarView calendarView = ((mCalendarView) findViewById(R.id.calendar_exp));
 
         final CalendarView calendar = (CalendarView)findViewById(R.id.calendarView);
         DateFormat formatter = DateFormat.getDateInstance(DateFormat.DEFAULT);

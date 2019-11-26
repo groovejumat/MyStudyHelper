@@ -42,7 +42,6 @@ public class MemoAdapter extends RecyclerView.Adapter<MemoAdapter.CustomViewHold
             this.korean = (TextView) view.findViewById(R.id.korean_listitem);
 
             view.setOnCreateContextMenuListener(this);
-
         }
 
 

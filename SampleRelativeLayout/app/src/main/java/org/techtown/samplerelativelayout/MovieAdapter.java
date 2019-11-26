@@ -1,6 +1,8 @@
 package org.techtown.samplerelativelayout;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
@@ -13,17 +15,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> implements Filterable  {
 
     private ArrayList<Movie> items;
     private ArrayList<Movie> itemsFull;
+    Context mcontext;
 
     //필터 사용을 위해 추가된 메서드
     MovieAdapter(ArrayList<Movie> items) {
@@ -102,6 +105,52 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                     }
                 }
             });
+
+
+            //         itemView.setOnLongClickListener(new View.OnLongClickListener() {
+//                @Override
+//                public boolean onLongClick(View v) {
+//
+//                    AlertDialog.Builder builder = new AlertDialog.Builder();
+//
+//                    builder.setTitle("클립 보드를 삭제하시겠습니까?");
+//
+//
+//                    builder.setPositiveButton("아니오", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//
+//                        }
+//                    });
+//
+//                    builder.setNegativeButton("네", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            int pos = getAdapterPosition() ;
+//                            items.remove(pos);
+//                            notifyItemChanged(pos);
+//                        }
+//                    });
+//
+//                    AlertDialog alertDialog = builder.create();
+//                    alertDialog.show();
+//                    Context context = v.getContext();
+//                    int pos = getAdapterPosition() ;
+//                    if (pos != RecyclerView.NO_POSITION) {
+//                        Log.v("태그", String.valueOf(pos)+"가 호출됌.");
+//                        notifyItemChanged(pos);
+//
+//                        String url = items.get(pos).getContent();
+//                        Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse(url));
+//                        context.startActivity(intent);
+//
+////                        if(mListener!=null){
+////                            mListener.onItemClcik(v,pos);
+//                        //}
+//                    }
+//                    return true;
+//                }
+   //         });
         }
     }
 
@@ -110,10 +159,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull MovieAdapter.ViewHolder viewHolder, int position) {
 
         Movie item = items.get(position);
-//        Glide.with(viewHolder.itemView.getContext())
-//                .load(item.getUrl())
-//                .into(viewHolder.ivMovie);
-//
+        Glide.with(viewHolder.itemView.getContext())
+                .load(item.getUrl())
+                .into(viewHolder.ivMovie);
+
 
 
         if (item.getUrl().isEmpty()) {

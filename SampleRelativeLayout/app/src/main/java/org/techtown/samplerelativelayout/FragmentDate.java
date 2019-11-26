@@ -68,7 +68,9 @@ public class FragmentDate extends Fragment {
 
 
         RecyclerView mRecyclerView = (RecyclerView) getView().findViewById(R.id.recyclerview_main_list);
-        mAdapter = new TodoAdapter(mArrayList);
+        //mAdapter = new TodoAdapter(mArrayList);
+        mAdapter = new TodoAdapter(this,mArrayList);
+
         mRecyclerView.setAdapter(mAdapter);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
@@ -88,7 +90,10 @@ public class FragmentDate extends Fragment {
                 Log.e("태그", "추가된 텍스트의 내용" + todotext);
                 if(todotext.length()>0) {
                     Todo item = new Todo(todotext, false);
+                    //아이템 추가 됐을 때에 포지션 값을 확인해 볼 것.
                     mArrayList.add(item);
+                    //어댑터 내부에 로그들 모두 찍을 것.
+
                     mAdapter.notifyDataSetChanged();
                     //mArrayList.clear();
                 }
@@ -107,19 +112,22 @@ public class FragmentDate extends Fragment {
 
             @Override
             public void onLongClick(View view, final int position) {
+                final EditText edittext = new EditText(getActivity());
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("할 일 편집하기");
+                builder.setView(edittext);
+                edittext.setHint(mArrayList.get(position).todo);
 
-                builder.setTitle("할일 목록을 삭제하시겠습니까?");
-
-
-                builder.setPositiveButton("아니오", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("수정완료", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        mArrayList.get(position).setTodo(edittext.getText().toString());
+                        mAdapter.notifyDataSetChanged();
                     }
                 });
 
-                builder.setNegativeButton("네", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("삭제하기", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mArrayList.remove(position);

@@ -1,6 +1,7 @@
 package org.techtown.samplerelativelayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -75,8 +77,31 @@ public class PostmainActivity extends AppCompatActivity {
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             final int position = viewHolder.getAdapterPosition();
-            items.remove(position);
-            adapter.notifyItemRemoved(position);
+//            items.remove(position);
+//            adapter.notifyItemRemoved(position);
+            AlertDialog.Builder builder = new AlertDialog.Builder(PostmainActivity.this);
+
+            builder.setTitle("클립 보드를 삭제하시겠습니까?");
+
+
+            builder.setPositiveButton("아니오", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    adapter.notifyDataSetChanged();
+                }
+            });
+
+            builder.setNegativeButton("네", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    items.remove(position);
+                    adapter.notifyDataSetChanged();
+                }
+            });
+
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
         }
     };
 

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#B0F7FF"
+    android:background="#FFFFFF"
     android:baselineAligned="false"
     android:orientation="vertical"
     android:padding="10dip">
@@ -42,7 +42,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:background="#B1E4FA"
+            android:background="#CECECE"
             android:text="나중에 등록할께요"
             android:textAlignment="center" />
 
@@ -53,7 +53,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:background="#B1E4FA"
+            android:background="#CECECE"
             android:text="계정등록하기"
             android:textAlignment="center" />
     </LinearLayout>
