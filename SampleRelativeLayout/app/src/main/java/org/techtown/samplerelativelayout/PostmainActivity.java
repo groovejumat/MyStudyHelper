@@ -97,17 +97,6 @@ public class PostmainActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     items.remove(position);
                     adapter.notifyItemRemoved(position);
-
-                    Handler delayHandler = new Handler();
-                    delayHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            // TODO
-                            adapter.notifyDataSetChanged();
-                        }
-                    }, 5000);
-
-
                 }
             });
 
@@ -192,6 +181,7 @@ public class PostmainActivity extends AppCompatActivity {
                     if(url_link.contains("https://")) {
                         Movie m = new Movie(image_url, "의미없음", post_name, url_link);
                         items.add(m);
+                        adapter.notifyItemChanged(items.size()-1);
                         //참조용 데이터 리스트도 변경됌.
                         adapter.SearchDataReSet(items);
 
@@ -318,48 +308,69 @@ public class PostmainActivity extends AppCompatActivity {
             @Override
             public void onLongClick(View view, final int position) {
 
-                //커스텀 다이얼로그 생성 후 띄우기//
-                Toast.makeText(PostmainActivity.this, "클립보드 수정 작업을 진행합니다.", Toast.LENGTH_SHORT).show();
-                final Dialog dialog2 = new Dialog(PostmainActivity.this);
-                dialog2.setContentView(R.layout.postdialog);
-                final EditText text1 = (EditText) dialog2.findViewById(R.id.image_url);
-                final EditText text2 = (EditText) dialog2.findViewById(R.id.post_name);
-                final EditText text3 = (EditText) dialog2.findViewById(R.id.url_link);
+                AlertDialog.Builder builder = new AlertDialog.Builder(PostmainActivity.this);
 
-                text1.setText(items.get(position).getUrl());
-                text2.setText(items.get(position).getTitle());
-                text3.setText(items.get(position).getContent());
+                builder.setTitle("해당 클립 보드를 수정하시겠습니까?");
 
-                Button button1 = (Button) dialog2.findViewById(R.id.cancel);
-                button1.setOnClickListener(new View.OnClickListener(){
+
+                builder.setPositiveButton("아니오", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
-                        dialog2.dismiss();   //다이얼로그를 닫는 메소드입니다.
+                    public void onClick(DialogInterface dialog, int which) {
+                        adapter.notifyDataSetChanged();
                     }
                 });
 
-                Button button2 = (Button) dialog2.findViewById(R.id.ok);
-                button2.setOnClickListener(new View.OnClickListener(){
+                builder.setNegativeButton("네", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
-                        String image_url = text1.getText().toString();
-                        String post_name = text2.getText().toString();
-                        String url_link = text3.getText().toString();
-                        if(url_link.contains("https://")) {
-                            Movie m = new Movie(image_url, "의미없음", post_name, url_link);
-                            items.set(position,m);
-                            //참조용 데이터 리스트도 변경됌.
-                            adapter.notifyDataSetChanged();
+                    public void onClick(DialogInterface dialog, int which) {
 
-                            dialog2.dismiss();
-                        }//등록 작업을 진행 해줍니다.
-                        else {
-                            Toast.makeText(PostmainActivity.this, "url 양식이 맞지않습니다. 다시 확인해 주세요.", Toast.LENGTH_SHORT).show();
-                        }
+                        //커스텀 다이얼로그 생성 후 띄우기//
+                        Toast.makeText(PostmainActivity.this, "클립보드 수정 작업을 진행합니다.", Toast.LENGTH_SHORT).show();
+                        final Dialog dialog2 = new Dialog(PostmainActivity.this);
+                        dialog2.setContentView(R.layout.postdialog);
+                        final EditText text1 = (EditText) dialog2.findViewById(R.id.image_url);
+                        final EditText text2 = (EditText) dialog2.findViewById(R.id.post_name);
+                        final EditText text3 = (EditText) dialog2.findViewById(R.id.url_link);
+
+                        text1.setText(items.get(position).getUrl());
+                        text2.setText(items.get(position).getTitle());
+                        text3.setText(items.get(position).getContent());
+
+                        Button button1 = (Button) dialog2.findViewById(R.id.cancel);
+                        button1.setOnClickListener(new View.OnClickListener(){
+                            @Override
+                            public void onClick(View view) {
+                                dialog2.dismiss();   //다이얼로그를 닫는 메소드입니다.
+                            }
+                        });
+
+                        Button button2 = (Button) dialog2.findViewById(R.id.ok);
+                        button2.setOnClickListener(new View.OnClickListener(){
+                            @Override
+                            public void onClick(View view) {
+                                String image_url = text1.getText().toString();
+                                String post_name = text2.getText().toString();
+                                String url_link = text3.getText().toString();
+                                if(url_link.contains("https://")) {
+                                    Movie m = new Movie(image_url, "의미없음", post_name, url_link);
+                                    items.set(position,m);
+                                    //참조용 데이터 리스트도 변경됌.
+                                    adapter.notifyItemChanged(position);
+
+                                    dialog2.dismiss();
+                                }//등록 작업을 진행 해줍니다.
+                                else {
+                                    Toast.makeText(PostmainActivity.this, "url 양식이 맞지않습니다. 다시 확인해 주세요.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                        dialog2.show();
                     }
                 });
 
-                dialog2.show();
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
 
             }
         }));
