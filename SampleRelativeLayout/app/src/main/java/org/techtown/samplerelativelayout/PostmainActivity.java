@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -95,7 +96,18 @@ public class PostmainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     items.remove(position);
-                    adapter.notifyDataSetChanged();
+                    adapter.notifyItemRemoved(position);
+
+                    Handler delayHandler = new Handler();
+                    delayHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // TODO
+                            adapter.notifyDataSetChanged();
+                        }
+                    }, 5000);
+
+
                 }
             });
 
@@ -177,12 +189,17 @@ public class PostmainActivity extends AppCompatActivity {
                     String image_url = text1.getText().toString();
                     String post_name = text2.getText().toString();
                     String url_link = text3.getText().toString();
-                    Movie m = new Movie(image_url,"의미없음",post_name,url_link);
-                    items.add(m);
-                    //참조용 데이터 리스트도 변경됌.
-                    adapter.SearchDataReSet(items);
-                    adapter.notifyDataSetChanged();
-                    dialog2.dismiss();    //등록 작업을 진행 해줍니다.
+                    if(url_link.contains("https://")) {
+                        Movie m = new Movie(image_url, "의미없음", post_name, url_link);
+                        items.add(m);
+                        //참조용 데이터 리스트도 변경됌.
+                        adapter.SearchDataReSet(items);
+
+                        dialog2.dismiss();
+                    }//등록 작업을 진행 해줍니다.
+                    else {
+
+                    }
                 }
             });
 
@@ -257,9 +274,6 @@ public class PostmainActivity extends AppCompatActivity {
         adapter = new MovieAdapter(items);
         //recycleView 초기화
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-
-
-
 
 
 

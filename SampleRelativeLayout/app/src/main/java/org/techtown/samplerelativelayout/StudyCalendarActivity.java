@@ -44,25 +44,28 @@ public class StudyCalendarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_studycalender);
-//        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_main_list);
-//        mAdapter = new TodoAdapter(mArrayList);
-//        mRecyclerView.setAdapter(mAdapter);
-//
-//        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
-//        mRecyclerView.setLayoutManager(mLinearLayoutManager);
         final Calendar test = Calendar.getInstance();
-        //mCalendarView testview = (CalendarView)findViewById(R.id.calen);
-
-        //mCalendarView calendarView = ((mCalendarView) findViewById(R.id.calendar_exp));
-
         final CalendarView calendar = (CalendarView)findViewById(R.id.calendarView);
-        DateFormat formatter = DateFormat.getDateInstance(DateFormat.DEFAULT);
-        Log.e("태그","엑티비티가 시작할 때의 데이트 : " +  String.valueOf(Date));
+
 
         Calendar date = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         curDate = sdf.format(date.getTime());
         Log.e("태그","현재의 날짜 정보 : " +  curDate);
+
+
+        //테스트로 프래그먼트 생성하기//
+        fragmentManager = getSupportFragmentManager();
+
+        fragmentDate = new FragmentDate();
+        Bundle bundle = new Bundle();
+
+        //프래그먼트에 전달할 데이터를 세팅 : 현재 날짜 정보//
+        bundle.putString("dateinfo",curDate);
+        fragmentDate.setArguments(bundle);
+
+        transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.frameLayout, fragmentDate).commitAllowingStateLoss();
 
 
         //캘린더 날짜 클릭 리스너 확인.

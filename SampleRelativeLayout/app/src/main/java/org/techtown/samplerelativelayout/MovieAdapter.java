@@ -86,6 +86,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
             //ivMovie.setVisibility(View.GONE);
 
+//            int pos = getAdapterPosition() ;
+//            if (items.get(pos).getUrl().isEmpty()) {
+//                ivMovie.setVisibility(View.GONE);
+//            }
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -162,19 +167,19 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 //        Glide.with(viewHolder.itemView.getContext())
 //                .load(item.getUrl())
 //                .into(viewHolder.ivMovie);
+
         if (item.getUrl().isEmpty()) {
             Glide.with(viewHolder.itemView.getContext())
-                    .load(item.getUrl())
+                    .load(item.getUrl()).asBitmap()
                     .into(viewHolder.ivMovie);
-            Log.e("LOG", position + "   뷰홀더에 바인딩 될 이미지의 링크 확인.11" + item.getUrl());
+            Log.e("LOG", position + "   뷰홀더에 바인딩 될 이미지의 링크 확인하세요" + item.getUrl());
             viewHolder.ivMovie.setVisibility(View.GONE);
-
         }
         else {
             Glide.with(viewHolder.itemView.getContext())
-                    .load(item.getUrl())
+                    .load(item.getUrl()).asBitmap()
                     .into(viewHolder.ivMovie);
-            Log.e("LOG", position + "   뷰홀더에 바인딩 될 이미지의 링크 확인.11" + item.getUrl());
+            Log.e("LOG", position + "   뷰홀더에 바인딩 될 이미지의 링크 확인하세요" + item.getUrl());
             //viewHolder.ivMovie.setVisibility(View.GONE);
         }
 

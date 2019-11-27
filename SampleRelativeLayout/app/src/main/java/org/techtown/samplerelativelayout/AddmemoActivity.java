@@ -97,32 +97,37 @@ public class AddmemoActivity extends AppCompatActivity {
                 String context = editTextContext.getText().toString();
                 System.out.println(context);
 
-                Intent intent = new Intent(getApplication(), MainActivity.class);
+                if(title.length()>0) {
+                    Intent intent = new Intent(getApplication(), MainActivity.class);
 
-                Toast.makeText(getApplicationContext(), "메모가 저장 되었습니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "메모가 저장 되었습니다.", Toast.LENGTH_LONG).show();
 
-                final Dictionary putobject= new Dictionary(title,"의미","없음");
-                putobject.setContext(context);
+                    final Dictionary putobject = new Dictionary(title, "의미", "없음");
+                    putobject.setContext(context);
 
-                intent.putExtra("itemdata", putobject);
+                    intent.putExtra("itemdata", putobject);
 
-                setResult(Activity.RESULT_OK,intent);
+                    setResult(Activity.RESULT_OK, intent);
 
-                //셰어드프리퍼런스의 임시 메모내용을 초기화
-                Log.e("LOG", "셰어드 프리퍼런스 내용을 초기화 합니다.");
-                SharedPreferences sharedPreferences = getSharedPreferences("SavedAddmemo",MODE_PRIVATE);
-                //저장을 하기위해 editor를 이용하여 값을 저장시켜준다.
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                Gson gson = new Gson();
-                // 사용자가 입력한 저장할 데이터
-                editor.putString("addmemoTitle",null);
-                editor.putString("addmemoContext",null);// key, value를 이용하여 저장하는 형태
-                //최종 커밋
-                editor.commit();
+                    //셰어드프리퍼런스의 임시 메모내용을 초기화
+                    Log.e("LOG", "셰어드 프리퍼런스 내용을 초기화 합니다.");
+                    SharedPreferences sharedPreferences = getSharedPreferences("SavedAddmemo", MODE_PRIVATE);
+                    //저장을 하기위해 editor를 이용하여 값을 저장시켜준다.
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    Gson gson = new Gson();
+                    // 사용자가 입력한 저장할 데이터
+                    editor.putString("addmemoTitle", null);
+                    editor.putString("addmemoContext", null);// key, value를 이용하여 저장하는 형태
+                    //최종 커밋
+                    editor.commit();
 
-                OnstopSaving=false;
+                    OnstopSaving = false;
 
-                finish();
+                    finish();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "제목을 한글자 이상 해주세요.", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -131,6 +136,23 @@ public class AddmemoActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("작성 중이신 메모 내용을 임시 저장 할까요?");
+
+        builder.setPositiveButton("아니오", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+
+        builder.setNegativeButton("네", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
         //저장한 글자의 내용이 한 글자 이상이라면 셰어드 프리퍼런스로 임시저장 처리를한다.
         final EditText editTextTitle = (EditText) findViewById(R.id.memo_title);
         final EditText editTextContext = (EditText) findViewById(R.id.memo_context);

@@ -44,7 +44,7 @@
         <activity android:name=".MemomainActivity" />
         <activity android:name=".EditmemoActivity" />
         <activity android:name=".Settings" />
-        <activity android:name=".Studycalender" />
+        <activity android:name=".Studycalender"/>
         <activity android:name=".Studynote" />
         <activity android:name=".Pomodoro" />
         <activity android:name=".MainActivity" />
