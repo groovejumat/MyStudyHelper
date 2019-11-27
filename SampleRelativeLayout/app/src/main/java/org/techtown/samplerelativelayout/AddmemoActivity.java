@@ -53,6 +53,17 @@ public class AddmemoActivity extends AppCompatActivity {
             builder.setPositiveButton("아니오", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    //OnstopSaving = false;
+
+                    SharedPreferences sharedPreferences = getSharedPreferences("SavedAddmemo", MODE_PRIVATE);
+                    //저장을 하기위해 editor를 이용하여 값을 저장시켜준다.
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    Gson gson = new Gson();
+                    // 사용자가 입력한 저장할 데이터
+                    editor.putString("addmemoTitle", null);
+                    editor.putString("addmemoContext", null);
+                    editor.commit();
+
                 }
             });
 
@@ -63,6 +74,15 @@ public class AddmemoActivity extends AppCompatActivity {
                     Log.e("LOG", "내용"+savedcontext);
                     editTextTitle.setText(savedtitle);
                     editTextContext.setText(savedcontext);
+
+                    SharedPreferences sharedPreferences = getSharedPreferences("SavedAddmemo", MODE_PRIVATE);
+                    //저장을 하기위해 editor를 이용하여 값을 저장시켜준다.
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    Gson gson = new Gson();
+                    // 사용자가 입력한 저장할 데이터
+                    editor.putString("addmemoTitle", null);
+                    editor.putString("addmemoContext", null);
+                    editor.commit();
                 }
             });
             AlertDialog alertDialog = builder.create();
@@ -80,10 +100,7 @@ public class AddmemoActivity extends AppCompatActivity {
         String context = editTextContext.getText().toString();
         System.out.println(context);
 
-
         //putdata get setted//
-
-
 
 
         Button buttonInsertA = (Button) findViewById(R.id.addconfirm);
@@ -159,6 +176,8 @@ public class AddmemoActivity extends AppCompatActivity {
         if (OnstopSaving == true) {// 해당 메모가 저장등록 버튼을 거쳐가지 않았을 경우 저장 처리.
             if (editTextTitle.getText().toString().length() > 1 || editTextContext.getText().toString().length() > 1) {
                 Log.e("LOG", "메모 내용이 임시 저장 되었습니다.");
+
+                Toast.makeText(getApplicationContext(), "작성 중이신 메모가 임시 저장 되었습니다.", Toast.LENGTH_LONG).show();
 
                 SharedPreferences sharedPreferences = getSharedPreferences("SavedAddmemo", MODE_PRIVATE);
 

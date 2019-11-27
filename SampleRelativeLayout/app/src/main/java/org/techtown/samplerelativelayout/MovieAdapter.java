@@ -1,6 +1,7 @@
 package org.techtown.samplerelativelayout;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,10 +10,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -112,50 +116,52 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             });
 
 
-            //         itemView.setOnLongClickListener(new View.OnLongClickListener() {
+//            itemView.setOnLongClickListener(new View.OnLongClickListener() {
 //                @Override
 //                public boolean onLongClick(View v) {
+//                    //////액션바에서 내용 추가하기 기능 생성//////
+//                    //Toast.makeText(MovieAd, "추가버튼을 클릭", Toast.LENGTH_SHORT).show();
+//                    //커스텀 다이얼로그 생성 후 띄우기//
+//                    final Dialog dialog2 = new Dialog(mcontext);
+//                    dialog2.setContentView(R.layout.postdialog);
+//                    final EditText text1 = (EditText) dialog2.findViewById(R.id.image_url);
+//                    final EditText text2 = (EditText) dialog2.findViewById(R.id.post_name);
+//                    final EditText text3 = (EditText) dialog2.findViewById(R.id.url_link);
 //
-//                    AlertDialog.Builder builder = new AlertDialog.Builder();
-//
-//                    builder.setTitle("클립 보드를 삭제하시겠습니까?");
-//
-//
-//                    builder.setPositiveButton("아니오", new DialogInterface.OnClickListener() {
+//                    Button button1 = (Button) dialog2.findViewById(R.id.cancel);
+//                    button1.setOnClickListener(new View.OnClickListener(){
 //                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
+//                        public void onClick(View view) {
 //
+//                            dialog2.dismiss();   //다이얼로그를 닫는 메소드입니다.
 //                        }
 //                    });
 //
-//                    builder.setNegativeButton("네", new DialogInterface.OnClickListener() {
+//                    Button button2 = (Button) dialog2.findViewById(R.id.ok);
+//                    button2.setOnClickListener(new View.OnClickListener(){
 //                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            int pos = getAdapterPosition() ;
-//                            items.remove(pos);
-//                            notifyItemChanged(pos);
+//                        public void onClick(View view) {
+//                            String image_url = text1.getText().toString();
+//                            String post_name = text2.getText().toString();
+//                            String url_link = text3.getText().toString();
+//                            if(url_link.contains("https://")) {
+//                                Movie m = new Movie(image_url, "의미없음", post_name, url_link);
+//                                items.add(m);
+//                                //참조용 데이터 리스트도 변경됌.
+//                                //adapter.SearchDataReSet(items);
+//
+//                                dialog2.dismiss();
+//                            }//등록 작업을 진행 해줍니다.
+//                            else {
+//                                //Toast.makeText(MovieAdapter.this, "url 양식이 맞지않습니다. 다시 확인해 주세요.", Toast.LENGTH_SHORT).show();
+//                            }
 //                        }
 //                    });
 //
-//                    AlertDialog alertDialog = builder.create();
-//                    alertDialog.show();
-//                    Context context = v.getContext();
-//                    int pos = getAdapterPosition() ;
-//                    if (pos != RecyclerView.NO_POSITION) {
-//                        Log.v("태그", String.valueOf(pos)+"가 호출됌.");
-//                        notifyItemChanged(pos);
-//
-//                        String url = items.get(pos).getContent();
-//                        Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse(url));
-//                        context.startActivity(intent);
-//
-////                        if(mListener!=null){
-////                            mListener.onItemClcik(v,pos);
-//                        //}
-//                    }
+//                    dialog2.show();
 //                    return true;
 //                }
-   //         });
+//            });
         }
     }
 

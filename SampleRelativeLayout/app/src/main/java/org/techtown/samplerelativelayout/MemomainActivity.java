@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -32,6 +33,8 @@ public class MemomainActivity extends AppCompatActivity{
     private ArrayList<Dictionary> sharedmArrayList = new ArrayList<>();
 
     private ArrayList<DictionarySave> SavedList = new ArrayList<>();
+
+    RecyclerView mRecyclerView;
 
     private MemoAdapter mAdapter;
     private int count = -1;
@@ -114,7 +117,7 @@ public class MemomainActivity extends AppCompatActivity{
 
 
         //생성할 릴사이클러 뷰의 아이디 값을 세팅하고, 레이아웃 매니저를 통해서 해당 리사이클러뷰를 새로 진행 방식으로 만든다.
-        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_main_list);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_main_list);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRecyclerView.addItemDecoration(spaceDecoration);
@@ -151,7 +154,14 @@ public class MemomainActivity extends AppCompatActivity{
             System.out.println(getobject.getContext());
             mArrayList.add(0,getobject);
             mAdapter.notifyItemInserted(0);
-//            mRecyclerView.scrollToPosition(0);
+            mRecyclerView.scrollToPosition(0);
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mRecyclerView.scrollToPosition(-4);
+                }
+            }, 200);
         }
 
         //변경된 데이터가 존재하면(activity_deit_memo로 부터 전달 받음)
@@ -163,6 +173,7 @@ public class MemomainActivity extends AppCompatActivity{
             System.out.println("포지션 값을 받아옴" + position);
             mArrayList.set(position,getobject);
             mAdapter.notifyItemInserted(0);
+            mRecyclerView.scrollToPosition(0);
         }
 
 
@@ -281,6 +292,7 @@ public class MemomainActivity extends AppCompatActivity{
                 System.out.println(result.getContext());
                 mArrayList.add(0,result);
                 mAdapter.notifyItemInserted(0);
+                mRecyclerView.scrollToPosition(0);
             }
         }
 

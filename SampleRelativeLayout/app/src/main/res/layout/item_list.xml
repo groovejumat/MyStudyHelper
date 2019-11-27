@@ -23,6 +23,8 @@
         android:gravity="bottom"
         android:padding="5dp"
         android:text="123"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textAlignment="textStart"
         android:textColor="#040000"
         android:textStyle="bold" />
