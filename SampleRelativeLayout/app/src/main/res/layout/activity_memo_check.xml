@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DCDCDC"
+    android:background="#DEDEDE"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -23,11 +23,13 @@
         android:id="@+id/button_insert_activity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
-        android:background="#727272"
-        android:text="메모추가"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp" />
+        android:layout_marginRight="20dp"
+        android:background="#C5C5C5"
+        android:text="메모 작성"
+        android:textColor="#0F0000"
+        android:textSize="15dp" />
 
 
 </LinearLayout>

@@ -18,7 +18,7 @@
             android:ems="10"
             android:hint="해당 날짜에 할 일을 입력해주세요."
             android:inputType="textPersonName"
-            android:maxLength="30"
+            android:maxLength="25"
             android:textSize="15dp" />
 
         <Button

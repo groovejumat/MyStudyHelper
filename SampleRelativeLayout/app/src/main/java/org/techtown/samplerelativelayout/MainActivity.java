@@ -17,30 +17,30 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Dialog dialog2 = new Dialog(MainActivity.this);
-        dialog2.setContentView(R.layout.registerdialog);
-        //final EditText text1 = (EditText) dialog2.findViewById(R.id.image_url);
-
-        Button dbutton1 = (Button) dialog2.findViewById(R.id.cancel);
-        dbutton1.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-
-                dialog2.dismiss();   //다이얼로그를 닫는 메소드입니다.
-            }
-        });
-
-
-        Button dbutton2 = (Button) dialog2.findViewById(R.id.ok);
-        dbutton2.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),LoginmainActivity.class);
-                startActivity(intent);//액티비티 띄우기
-            }
-        });
-
-        dialog2.show();
+//        final Dialog dialog2 = new Dialog(MainActivity.this);
+//        dialog2.setContentView(R.layout.registerdialog);
+//        //final EditText text1 = (EditText) dialog2.findViewById(R.id.image_url);
+//
+//        Button dbutton1 = (Button) dialog2.findViewById(R.id.cancel);
+//        dbutton1.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view) {
+//
+//                dialog2.dismiss();   //다이얼로그를 닫는 메소드입니다.
+//            }
+//        });
+//
+//
+//        Button dbutton2 = (Button) dialog2.findViewById(R.id.ok);
+//        dbutton2.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(),LoginmainActivity.class);
+//                startActivity(intent);//액티비티 띄우기
+//            }
+//        });
+//
+//        dialog2.show();
 
 
 

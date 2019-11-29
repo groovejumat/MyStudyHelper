@@ -37,6 +37,8 @@ public class PostmainActivity extends AppCompatActivity {
     private ArrayList<Movie> getitems = new ArrayList<>();
     private MovieAdapter adapter = new MovieAdapter(items);
 
+    RecyclerView recyclerView;
+
     boolean Onsearch = false;
 
     //온스탑에서 생명주기를 통해 셰어드 프리퍼런스로 저장작업을 처리합니다.
@@ -88,6 +90,7 @@ public class PostmainActivity extends AppCompatActivity {
             builder.setPositiveButton("아니오", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    adapter.setItems(items);
                     adapter.notifyDataSetChanged();
                 }
             });
@@ -97,6 +100,8 @@ public class PostmainActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     items.remove(position);
                     adapter.notifyItemRemoved(position);
+
+
                 }
             });
 
@@ -178,17 +183,36 @@ public class PostmainActivity extends AppCompatActivity {
                     String image_url = text1.getText().toString();
                     String post_name = text2.getText().toString();
                     String url_link = text3.getText().toString();
-                    if(url_link.contains("https://")) {
+
+                    //제목이 한글자 미만이거나
+                    if(post_name.length()<1) {
+//                        Movie m = new Movie(image_url, "의미없음", post_name, url_link);
+//                        items.add(m);
+//                        adapter.notifyItemChanged(items.size()-1);
+//                        //참조용 데이터 리스트도 변경됌.
+//                        adapter.SearchDataReSet(items);
+                        Toast.makeText(PostmainActivity.this, "제목을 한글자 이상입력해주세요.", Toast.LENGTH_SHORT).show();
+                        //dialog2.dismiss();
+                    }//등록 작업을 진행 해줍니다.
+
+                    //값이 없다면
+                    else if(url_link.contains("https://")==false) {
+//                        Movie m = new Movie(image_url, "의미없음", post_name, url_link);
+//                        items.add(m);
+//                        adapter.notifyItemChanged(items.size()-1);
+//                        //참조용 데이터 리스트도 변경됌.
+//                        adapter.SearchDataReSet(items);
+                        Toast.makeText(PostmainActivity.this, "링크 내용을 다시 확인해 주세요.", Toast.LENGTH_SHORT).show();
+                        //dialog2.dismiss();
+                    }//등록 작업을 진행 해줍니다.
+                    else {
                         Movie m = new Movie(image_url, "의미없음", post_name, url_link);
                         items.add(m);
                         adapter.notifyItemChanged(items.size()-1);
                         //참조용 데이터 리스트도 변경됌.
                         adapter.SearchDataReSet(items);
-
+                        //Toast.makeText(PostmainActivity.this, "", Toast.LENGTH_SHORT).show();
                         dialog2.dismiss();
-                    }//등록 작업을 진행 해줍니다.
-                    else {
-                        Toast.makeText(PostmainActivity.this, "url 양식이 맞지않습니다. 다시 확인해 주세요.", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -263,7 +287,7 @@ public class PostmainActivity extends AppCompatActivity {
         Log.e("LOG", "어댑터에 세팅되어진 아이템의 갯수를 확인합니다." + items.size());
         adapter = new MovieAdapter(items);
         //recycleView 초기화
-        final RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
 
 
 
@@ -345,22 +369,43 @@ public class PostmainActivity extends AppCompatActivity {
                         });
 
                         Button button2 = (Button) dialog2.findViewById(R.id.ok);
+                        button2.setText("수정하기");
                         button2.setOnClickListener(new View.OnClickListener(){
                             @Override
                             public void onClick(View view) {
                                 String image_url = text1.getText().toString();
                                 String post_name = text2.getText().toString();
                                 String url_link = text3.getText().toString();
-                                if(url_link.contains("https://")) {
-                                    Movie m = new Movie(image_url, "의미없음", post_name, url_link);
-                                    items.set(position,m);
-                                    //참조용 데이터 리스트도 변경됌.
-                                    adapter.notifyItemChanged(position);
 
-                                    dialog2.dismiss();
+                                //제목이 한글자 미만이거나
+                                if(post_name.length()<1) {
+//                        Movie m = new Movie(image_url, "의미없음", post_name, url_link);
+//                        items.add(m);
+//                        adapter.notifyItemChanged(items.size()-1);
+//                        //참조용 데이터 리스트도 변경됌.
+//                        adapter.SearchDataReSet(items);
+                                    Toast.makeText(PostmainActivity.this, "제목을 한글자 이상입력해주세요.", Toast.LENGTH_SHORT).show();
+                                    //dialog2.dismiss();
+                                }//등록 작업을 진행 해줍니다.
+
+                                //값이 없다면
+                                else if(url_link.contains("https://")==false) {
+//                        Movie m = new Movie(image_url, "의미없음", post_name, url_link);
+//                        items.add(m);
+//                        adapter.notifyItemChanged(items.size()-1);
+//                        //참조용 데이터 리스트도 변경됌.
+//                        adapter.SearchDataReSet(items);
+                                    Toast.makeText(PostmainActivity.this, "링크 내용을 다시 확인해 주세요.", Toast.LENGTH_SHORT).show();
+                                    //dialog2.dismiss();
                                 }//등록 작업을 진행 해줍니다.
                                 else {
-                                    Toast.makeText(PostmainActivity.this, "url 양식이 맞지않습니다. 다시 확인해 주세요.", Toast.LENGTH_SHORT).show();
+                                    Movie m = new Movie(image_url, "의미없음", post_name, url_link);
+                                    items.set(position,m);
+                                    adapter.notifyItemChanged(position);
+                                    //참조용 데이터 리스트도 변경됌.
+                                    adapter.SearchDataReSet(items);
+                                    //Toast.makeText(PostmainActivity.this, "", Toast.LENGTH_SHORT).show();
+                                    dialog2.dismiss();
                                 }
                             }
                         });
@@ -374,16 +419,6 @@ public class PostmainActivity extends AppCompatActivity {
 
             }
         }));
-
-//        //엑티비티로 전달 후에 값저장하기 메모내용을 추가해주는 뷰이벤트 처리
-//        Button buttonInsertA = (Button) findViewById(R.id.button_insert_activity);
-//        buttonInsertA.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(),AddmemoActivity.class); // 다음 넘어갈 클래스 지정
-//                startActivityForResult(intent,1); // 다음 화면으로 넘어간다
-//            }
-//        });
     }
 
 

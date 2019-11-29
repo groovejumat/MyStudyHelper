@@ -3,6 +3,7 @@ package org.techtown.samplerelativelayout;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,6 +92,7 @@ public class FragmentDate extends Fragment {
                 final String todotext = todoText.getText().toString();
                 Log.e("태그", "추가된 텍스트의 내용" + todotext);
                 if(todotext.length()>0) {
+                    Toast.makeText(getContext(), "스케줄이 등록되었습니다.", Toast.LENGTH_SHORT).show();
                     Todo item = new Todo(todotext, false);
                     //아이템 추가 됐을 때에 포지션 값을 확인해 볼 것.
                     mArrayList.add(item);
@@ -119,14 +121,23 @@ public class FragmentDate extends Fragment {
             public void onLongClick(View view, final int position) {
                 final EditText edittext = new EditText(getActivity());
 
+                int maxLength = 26;
+
+                InputFilter[] fArray = new InputFilter[1];
+
+                fArray[0] = new InputFilter.LengthFilter(maxLength);
+
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("할 일 편집하기");
                 builder.setView(edittext);
                 edittext.setText(mArrayList.get(position).todo);
+                edittext.setFilters(fArray);  // 글자 수를 25자로 제한 하기 //
 
                 builder.setPositiveButton("수정완료", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext(), "수정이 완료되었습니다.", Toast.LENGTH_SHORT).show();
                         mArrayList.get(position).setTodo(edittext.getText().toString());
                         mAdapter.notifyDataSetChanged();
                     }

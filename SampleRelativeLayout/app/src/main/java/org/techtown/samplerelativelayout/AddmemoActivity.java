@@ -143,7 +143,7 @@ public class AddmemoActivity extends AppCompatActivity {
                     finish();
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "제목을 한글자 이상 해주세요.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "제목을 한글자 이상 입력해주세요.", Toast.LENGTH_LONG).show();
                 }
             }
         });

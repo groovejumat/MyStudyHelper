@@ -186,7 +186,7 @@ public class MemomainActivity extends AppCompatActivity{
                 //아이템을 클릭했을 때에 메모장에 대한 정보를 보내주어야 하니까, 해당 내용에 관련된 dic객체를 생성해서 보내준다.
                 Intent intent2 = new Intent(getApplication(), EditmemoActivity.class);
                 Dictionary dict = mArrayList.get(position);
-                Toast.makeText(getApplicationContext(), dict.getId() + ' ' + dict.getEnglish() + ' ' + dict.getKorean() + position, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), dict.getId() + ' ' + dict.getEnglish() + ' ' + dict.getKorean() + position, Toast.LENGTH_LONG).show();
                 System.out.println("<<메모장 정보 확인>>");
                 System.out.println(dict.getId());
                 System.out.println(dict.getEnglish());
