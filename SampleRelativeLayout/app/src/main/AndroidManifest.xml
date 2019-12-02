@@ -47,8 +47,10 @@
         <activity android:name=".Studycalender"/>
         <activity android:name=".Studynote" />
         <activity android:name=".Pomodoro" />
+        <activity android:name=".CountdownTimer" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Startpage">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
