@@ -26,6 +26,7 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +60,7 @@ public class CountdownTimer extends AppCompatActivity {
     Integer count =1;
     //프로그래스바 생성
     private ProgressBar progressBar;
+
     //프로그래스 바 객체 생성
     ProgressbarTask Progress;
 
@@ -81,6 +83,9 @@ public class CountdownTimer extends AppCompatActivity {
     NumberPicker picker2;
     NumberPicker picker3;
 
+    //내 쓰레드 타이머가 실행시 휴식상태여부를 판별하기 위한 쓰레드
+    boolean Onrest = false;
+
     private static Handler mHandler ;
     private static Handler restHandler ;
     private static Handler WiseSayHandler;
@@ -102,6 +107,11 @@ public class CountdownTimer extends AppCompatActivity {
         timetext = (TextView)findViewById(R.id.time);
         resttimetext = (TextView)findViewById(R.id.resttime);
         setcounttext = (TextView)findViewById(R.id.setcount);
+
+        //중단 <-> 재실행 버튼지정(해당 버튼은 타이머가 진행시에만 생성.)//
+        Button PauseResume = (Button) findViewById(R.id.PauseResume);
+        PauseResume.setVisibility(View.INVISIBLE);
+
 
 
 
@@ -233,6 +243,7 @@ public class CountdownTimer extends AppCompatActivity {
 
 
         //실제 다이얼로그 세팅 하기
+
         Button timerset = (Button)findViewById(R.id.btnTimeset);
         timerset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -248,7 +259,7 @@ public class CountdownTimer extends AppCompatActivity {
                 picker3 = (NumberPicker)dialog.findViewById(R.id.picker3);
 
                 //공부시간 최소 최대 값 설정
-                picker1.setMinValue(10);
+                picker1.setMinValue(15);
                 picker1.setMaxValue(180);
                 picker1.setValue(10);
                 picker1.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
@@ -260,7 +271,7 @@ public class CountdownTimer extends AppCompatActivity {
                         picker1.setValue(newVal);
                     }
                 });
-                picker1.setWrapSelectorWheel(false);
+                //picker1.setWrapSelectorWheel(false);
 
                 //휴식시간 최소 최대 값 설정
                 picker2.setMinValue(5);
@@ -275,11 +286,11 @@ public class CountdownTimer extends AppCompatActivity {
                         picker2.setValue(newVal);
                     }
                 });
-                picker2.setWrapSelectorWheel(false);
+                //picker2.setWrapSelectorWheel(false);
 
                 //세트수 최소 최대 설정
                 picker3.setMinValue(1);
-                picker3.setMaxValue(10);
+                picker3.setMaxValue(5);
                 picker3.setValue(1);
                 picker3.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                     @Override
@@ -291,7 +302,7 @@ public class CountdownTimer extends AppCompatActivity {
                         maincount=setcount;
                     }
                 });
-                picker3.setWrapSelectorWheel(false);
+                //picker3.setWrapSelectorWheel(false);
 
 
                 //세팅완료 버튼
@@ -321,14 +332,21 @@ public class CountdownTimer extends AppCompatActivity {
                         time=picker1.getValue();
                         tmptime=picker1.getValue();
 
-                        resttime=picker2.getValue();
-                        tmpresttime=picker2.getValue();
-
+//                        resttime=picker2.getValue();
+//                        tmpresttime=picker2.getValue();
 
                         setcount=picker3.getValue();
                         tmpsetcount=picker3.getValue();
 
                         maincount=setcount;
+
+                        //time값을 텍스트에 반영하기//
+                        mHandler.sendEmptyMessage(0); // time값을 텍스트에 반영
+
+                        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+                        progressBar.setProgress(0); //프로그래스의 값을 초기화 시킴
+
+                        Toast.makeText(getApplicationContext(), "타이머 세팅이 완료되어 졌습니다.", Toast.LENGTH_LONG).show();
 
                         dialog.dismiss();
                     }
@@ -348,6 +366,27 @@ public class CountdownTimer extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(start.getText().equals("시작")) {
+
+                    //중단 <-> 재실행 버튼지정(해당 버튼은 타이머가 진행시에만 생성.)//
+                    final Button PauseResume = (Button) findViewById(R.id.PauseResume);
+                    PauseResume.setVisibility(View.VISIBLE);
+                    PauseResume.setText("중지");
+                    PauseResume.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(PauseResume.getText().equals("중지")) {
+                                Toast.makeText(getApplicationContext(), "타이머가 중지 되었습니다.", Toast.LENGTH_LONG).show();
+                                PauseResume.setText("재시작");
+                                nr.onPause();
+                            }
+                            else{
+                                PauseResume.setText("중지");
+                                Toast.makeText(getApplicationContext(), "타이머가 재시작 되었습니다.", Toast.LENGTH_LONG).show();
+                                nr.onResume();
+                            }
+                        }
+                    });
+                    //중단 <-> 재실행 부분 끝//
 
                     wisesayTextView.setVisibility(View.VISIBLE);
 
@@ -383,8 +422,10 @@ public class CountdownTimer extends AppCompatActivity {
 
                     Progress.onProgressUpdate(0);//프로그래스 초기화 시키기//
                     clockTextView = findViewById(R.id.clock) ;
-                    clockTextView.setText("00:00") ; //지정한 세트수가 반영된다.
-                    time=tmptime;
+
+                    time=tmptime;//time값을 텍스트에 반영하기//
+                    mHandler.sendEmptyMessage(0); // 초기의 time값을 텍스트에 반영
+
                     resttime=tmpresttime;
                     setcount=tmpsetcount;
 
@@ -411,6 +452,7 @@ public class CountdownTimer extends AppCompatActivity {
         public void run() {
             while (!mFinished) {
                 if (time > 0) {
+                    Onrest=false; // 공부시간 시작시에는 휴식 상태가 false로 바뀐다.
                     Log.e(this.getClass().getName(), "[time 값] : " + String.valueOf(time));
                     countHandler.sendEmptyMessage(0);
                     mHandler.sendEmptyMessage(0); // time값을 텍스트에 반영
@@ -421,13 +463,28 @@ public class CountdownTimer extends AppCompatActivity {
 
                     time--;
                 } else if (resttime > 0) {//해당부분에서 쓰레드의 시간이 바뀜으로써 "다음단계가" 진행 되여야 한다.
+                   Onrest = true; // 휴식 상태가 true로 바뀐다.
+
+                    //휴식시간이 30초 가 남았을때의 처리하기(생명주기 상태에 따라서 다르다!!)
+                    if(resttime==30 && Activitycondition.equals("onStart")){
+                        Toast.makeText(getApplicationContext(), "휴식시간이 얼마 남지 않았습니다. 준비해주세요.", Toast.LENGTH_LONG).show(); //내부에 있는 경우에는 토스트로 메시지를 알린다.
+                    }
+                    if(resttime==30 && Activitycondition.equals("onPause")){
+                        createNotification3(); //바깥에 있는 경우에는 노티피케이션으로 메시지를 알린다.
+                    }
+
                     Log.e(this.getClass().getName(), "[resttime 값] : " + resttime + "[firsrestttime 값] : " + firstresttime);
                     if (resttime == firstresttime) { //현재시각의 값을 초기시간의 값과 비교하기.
                         dialoghandler.sendEmptyMessage(0); // 쉬는 시각에서 다이얼로그를 띄워준다.
                     }
-                    restHandler.sendEmptyMessage(0); // restime값을 텍스트에 반영
+                    restHandler.sendEmptyMessage(0); // restime값을 텍스트에
+
                     resttime--;
                 } else {
+                    Onrest = true;
+                    //프로그래스바에 time정보를 반영한다.(time==0 일 때의 처리)
+                    Progress.onProgressUpdate(firsttime-time+1);
+
                     mHandler.sendEmptyMessage(0); // time값을 텍스트에 반영
                     //restHandler.sendEmptyMessage(0); // restime값을 텍스트에 반영
 
@@ -444,6 +501,7 @@ public class CountdownTimer extends AppCompatActivity {
                     //한 사이클이 끝나면, 값을 세팅해주고, 초기화 시킵니다.
                     time = firsttime;
                     resttime = firstresttime;
+                    Progress.onProgressUpdate(0);
                 }
                 try {
                     Thread.sleep(1000);
@@ -526,13 +584,13 @@ public class CountdownTimer extends AppCompatActivity {
                 else if(Activitycondition.equals("onPause")) {
                     //Log.e(this.getClass().getName(), "현재 Onpause 상태입니다.");
                     outcount++;
-                    if(outcount>10 && nr.mPaused==false){
+                    if(outcount>10 && nr.mPaused==false && Onrest==false){
                         //바깥 상태로 10초 경과가 있는 경우//
-                        nr.mPaused=true;
+                        nr.mPaused=true; // 일단 타이머는 정지된다
                         createNotification();
                     }
                     //내 타이머 쓰레드가 멈추지 않은 상태에서 Onstop상태로 20초가 경과 하였을 때 처리.
-                    if(outcount>20 && nr.mFinished==false){
+                    if(outcount>20 && nr.mFinished==false && Onrest==false ){
                         outcount=0;
                         //바깥 상태로 20초 경과가 있는 경우 타이머를 초기화 시킴//
                         TextView wisesayTextView = findViewById(R.id.wisesaying);
@@ -545,11 +603,22 @@ public class CountdownTimer extends AppCompatActivity {
                         nr.mPaused=true; //쓰레드 멈춤상태로 지정//
 
                         Progress.onProgressUpdate(0);//프로그래스 초기화 시키기//
+
                         clockTextView = findViewById(R.id.clock) ;
                         clockTextView.setText("00:00") ; //지정한 세트수가 반영된다.
                         time=tmptime;
                         resttime=tmpresttime;
                         setcount=tmpsetcount;
+
+                        //RunOnUiThread 를 활용하여, UI부분 수정을 활용해 보기.
+                        runOnUiThread(new Runnable() { public void run() {
+                            start.setText("시작");
+                            progressBar = (ProgressBar) findViewById(R.id.progressBar);
+                            progressBar.setProgress(0); //프로그래스의 값을 초기화 시킴
+                            time=tmptime;//time값을 텍스트에 반영하기//
+                            mHandler.sendEmptyMessage(0); // 초기의 time값을 텍스트에 반영
+                        } });
+
 
                         //start.setText("시작");
                         createNotification2();
@@ -653,6 +722,7 @@ public class CountdownTimer extends AppCompatActivity {
         //Activitycondition="onStop";
     }
 
+    ///////노티피케이션으로 안내 하기///////
     ///notification 구현해 보기//
     private void createNotification() {
 
@@ -700,8 +770,30 @@ public class CountdownTimer extends AppCompatActivity {
         notificationManager.notify(1, builder.build());
     }
 
-    private void removeNotification() {
+    ///notification 구현해 보기//
+    private void createNotification3() {
 
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
+
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setContentTitle("휴식시간이 얼마남지 않았습니다. 다음 공부를 준비하세요.");
+
+        builder.setColor(Color.RED);
+        // 사용자가 탭을 클릭하면 자동 제거
+        builder.setAutoCancel(true);
+
+        // 알림 표시
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationManager.createNotificationChannel(new NotificationChannel("default", "기본 채널", NotificationManager.IMPORTANCE_DEFAULT));
+        }
+
+        // id값은
+        // 정의해야하는 각 알림의 고유한 int값
+        notificationManager.notify(1, builder.build());
+    }
+
+    private void removeNotification() {
 
         // Notification 제거
         NotificationManagerCompat.from(this).cancel(1);

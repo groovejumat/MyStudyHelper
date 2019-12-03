@@ -7,6 +7,15 @@
     tools:context=".MainActivity">
 
     <Button
+        android:id="@+id/PauseResume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="@+id/btnTimeset"
+        app:layout_constraintEnd_toEndOf="@+id/btnTimeset"
+        app:layout_constraintStart_toStartOf="@+id/btnTimeset" />
+
+    <Button
         android:id="@+id/btnTimeset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
