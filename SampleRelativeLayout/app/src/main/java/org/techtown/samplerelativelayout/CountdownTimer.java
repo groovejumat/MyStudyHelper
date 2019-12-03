@@ -274,7 +274,7 @@ public class CountdownTimer extends AppCompatActivity {
                 //picker1.setWrapSelectorWheel(false);
 
                 //휴식시간 최소 최대 값 설정
-                picker2.setMinValue(5);
+                picker2.setMinValue(1);
                 picker2.setMaxValue(15);
                 picker2.setValue(5);
                 picker2.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
@@ -387,7 +387,6 @@ public class CountdownTimer extends AppCompatActivity {
                         }
                     });
                     //중단 <-> 재실행 부분 끝//
-
                     wisesayTextView.setVisibility(View.VISIBLE);
 
                     Button timerset = (Button)findViewById(R.id.btnTimeset);
@@ -416,6 +415,11 @@ public class CountdownTimer extends AppCompatActivity {
 
                     Button timerset = (Button)findViewById(R.id.btnTimeset);
                     timerset.setVisibility(View.VISIBLE); //실행시에는 타이머 세팅 버튼이 사라지도록 처리//
+
+                    //중단 <-> 재실행 버튼지정(해당 버튼은 타이머가 진행시에만 생성.)//
+                    Button PauseResume = (Button) findViewById(R.id.PauseResume);
+                    PauseResume.setVisibility(View.INVISIBLE);
+
 
                     nr.mFinished=true; //쓰레드 죽이기//
                     nr.mPaused=true; //쓰레드 멈춤상태로 지정//
@@ -467,7 +471,12 @@ public class CountdownTimer extends AppCompatActivity {
 
                     //휴식시간이 30초 가 남았을때의 처리하기(생명주기 상태에 따라서 다르다!!)
                     if(resttime==30 && Activitycondition.equals("onStart")){
-                        Toast.makeText(getApplicationContext(), "휴식시간이 얼마 남지 않았습니다. 준비해주세요.", Toast.LENGTH_LONG).show(); //내부에 있는 경우에는 토스트로 메시지를 알린다.
+
+                        //RunOnUiThread 를 활용하여, UI부분 수정을 활용해 보기.
+                        runOnUiThread(new Runnable() { public void run() {
+                            Toast.makeText(getApplicationContext(), "휴식시간이 얼마 남지 않았습니다. 준비해주세요.", Toast.LENGTH_LONG).show(); //내부에 있는 경우에는 토스트로 메시지를 알린다.
+                        } });
+
                     }
                     if(resttime==30 && Activitycondition.equals("onPause")){
                         createNotification3(); //바깥에 있는 경우에는 노티피케이션으로 메시지를 알린다.
@@ -587,6 +596,13 @@ public class CountdownTimer extends AppCompatActivity {
                     if(outcount>10 && nr.mPaused==false && Onrest==false){
                         //바깥 상태로 10초 경과가 있는 경우//
                         nr.mPaused=true; // 일단 타이머는 정지된다
+                        //RunOnUiThread 를 활용하여, UI부분 수정을 활용해 보기.
+                        runOnUiThread(new Runnable() { public void run() {
+                            //중지가 된 상태에서 되돌아 왔을 때에는 재시작 상태.
+//                            Button PauseResume = (Button) findViewById(R.id.PauseResume);
+//                            PauseResume.setText("재시작");
+                        } });
+
                         createNotification();
                     }
                     //내 타이머 쓰레드가 멈추지 않은 상태에서 Onstop상태로 20초가 경과 하였을 때 처리.
@@ -612,6 +628,11 @@ public class CountdownTimer extends AppCompatActivity {
 
                         //RunOnUiThread 를 활용하여, UI부분 수정을 활용해 보기.
                         runOnUiThread(new Runnable() { public void run() {
+                            //타이머가 초기화가 되어져 버렸을 경우에는 초기화를 시켜버린다//
+                            Button PauseResume = (Button) findViewById(R.id.PauseResume);
+                            PauseResume.setVisibility(View.INVISIBLE);
+                            //타이머 초기화//
+
                             start.setText("시작");
                             progressBar = (ProgressBar) findViewById(R.id.progressBar);
                             progressBar.setProgress(0); //프로그래스의 값을 초기화 시킴
