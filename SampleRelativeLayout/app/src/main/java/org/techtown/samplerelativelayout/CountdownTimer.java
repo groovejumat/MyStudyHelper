@@ -56,6 +56,15 @@ public class CountdownTimer extends AppCompatActivity {
     int tmpsetcount;
     String Activitycondition;
 
+    //명언쓰레드
+    Thread WS;
+
+    //해당 명언 시작 값 및 배열 설정
+    Integer Wsay =1;
+    List<String> wsaylist = new ArrayList<>();
+    //WsayTask Wsaying= new WsayTask();//.execute(wsaylist.size());
+    WsayRunnable Wsaying = new WsayRunnable();
+
     //프로그래스바 전용 카운트
     Integer count =1;
     //프로그래스바 생성
@@ -92,6 +101,7 @@ public class CountdownTimer extends AppCompatActivity {
     private static Handler countHandler;
     private static Handler finishHandler;
     private static Handler totalHandler;
+    private static Handler countrestHandler;
 
 
     @SuppressLint("HandlerLeak")
@@ -103,6 +113,8 @@ public class CountdownTimer extends AppCompatActivity {
         Activitycondition="onCreate";
         outcount = 0;
 
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setProgress(0); //프로그래스의 값을 초기화 시킴
 
         //메인화면에 텍스트 뷰로 타이머 세팅 값 표시하기
         timetext = (TextView)findViewById(R.id.time);
@@ -113,8 +125,14 @@ public class CountdownTimer extends AppCompatActivity {
         Button PauseResume = (Button) findViewById(R.id.PauseResume);
         PauseResume.setVisibility(View.INVISIBLE);
 
-
-
+        //응원 글에 넣을 배열 요소 추가.
+        wsaylist.add("성공을 확신하는 것은 \n 성공의 첫걸음이다.");
+        wsaylist.add("10분 뒤와 10년 후를 동시에 생각하라.");
+        wsaylist.add("고뇌에 지는 것은 수치가 아니다.\n쾌락에 지는 것이야 말로 수치다.");
+        wsaylist.add("늦게 시작하는 것을 두려워 말고,\n 하다 중단하는 것을 두려워 하라.");
+        wsaylist.add("많이 보고 많이 겪고 많이 공부하는 것은\n 배움의 세 기둥이다.");
+        wsaylist.add("공부벌레들에게 잘 해 주십시오.\n 나중에 그 사람 밑에서 일하게 될 수도 있습니다.");
+        //Wsaying.execute(wsaylist.size());
 
         //생명주기 상태를 실시간으로 점검하는 쓰레드를 실행
         final Runnable Activitycheck = new ActivityCheckRunnable() ;
@@ -176,7 +194,16 @@ public class CountdownTimer extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg) {
                 clockTextView = findViewById(R.id.count) ;
-                clockTextView.setText(String.valueOf(maincount-setcount+1) + "세트 째 공부중입니다.") ; //지정한 세트수가 반영된다.
+                clockTextView.setText(String.valueOf(maincount-setcount+1) + "세트 집중") ; //지정한 세트수가 반영된다.
+            }
+        } ;
+
+        //카운트 횟수 핸들러
+        countrestHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                clockTextView = findViewById(R.id.count) ;
+                clockTextView.setText(String.valueOf(maincount-setcount+1) + "세트 휴식") ; //지정한 세트수가 반영된다.
             }
         } ;
 
@@ -185,7 +212,7 @@ public class CountdownTimer extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg) {
                 clockTextView = findViewById(R.id.clock) ;
-                clockTextView.setText("공부 완료") ; //지정한 세트수가 반영된다.
+                clockTextView.setText("집중 완료") ; //지정한 세트수가 반영된다.
                 //완료가 되어진 시점에서 버튼 모양 변경
 
                 wisesayTextView.setVisibility(View.INVISIBLE);//완료가 되어진 시점에서 명언 쓰레드 안보이기
@@ -215,12 +242,12 @@ public class CountdownTimer extends AppCompatActivity {
             public void handleMessage(Message msg) { //해당 메시지를 메인쓰레드에 보내서 처리해주는 거다.
 
                 List<String> list = new ArrayList<>();
-                list.add("성공을 확신하는 것은 성공의 첫걸음이다.");
+                list.add("성공을 확신하는 것은 \n 성공의 첫걸음이다.");
                 list.add("10분 뒤와 10년 후를 동시에 생각하라.");
-                list.add("고뇌에 지는 것은 수치가 아니다. 쾌락에 지는 것이야 말로 수치다.");
-                list.add("늦게 시작하는 것을 두려워 말고, 하다 중단하는 것을 두려워 하라.");
-                list.add("많이 보고 많이 겪고 많이 공부하는 것은 배움의 세 기둥이다.");
-                list.add("공부벌레들에게 잘 해 주십시오. 나중에 그 사람 밑에서 일하게 될 수도 있습니다.");
+                list.add("고뇌에 지는 것은 수치가 아니다.\n쾌락에 지는 것이야 말로 수치다.");
+                list.add("늦게 시작하는 것을 두려워 말고,\n 하다 중단하는 것을 두려워 하라.");
+                list.add("많이 보고 많이 겪고 많이 공부하는 것은\n 배움의 세 기둥이다.");
+                list.add("공부벌레들에게 잘 해 주십시오.\n 나중에 그 사람 밑에서 일하게 될 수도 있습니다.");
 
                 TextView wisesayTextView;
                 wisesayTextView = findViewById(R.id.wisesaying) ; // 뷰에서 작업 처리를 해당 메서드 안에서 해준다.
@@ -238,9 +265,9 @@ public class CountdownTimer extends AppCompatActivity {
         };
 
         //명언 핸들러를 호출해서 사용하기//
-        final Runnable Wsaying = new WsayRunnable();
-        final Thread WS = new Thread(Wsaying);
-        WS.start();
+//        final Runnable Wsaying = new WsayRunnable();
+//        final Thread WS = new Thread(Wsaying);
+//        WS.start();
 
 
 
@@ -261,9 +288,10 @@ public class CountdownTimer extends AppCompatActivity {
                 //넘버피커를 5단위로 지정하기 유저가 세팅하기 편하게
                 for (int i = 0; i < Values.length; i++) {
                     String number = Integer.toString(i*5+10);
-                    Values[i] = number.length() < 2 ? "0" + number : number;
+                    Values[i] = number.length() < 2 ?  number : number;
                     Log.e(this.getClass().getName(), "현재 넘버피커의 값 : " + Values[i]);
                 }
+                Values[0]="1";
 
 
 
@@ -348,9 +376,9 @@ public class CountdownTimer extends AppCompatActivity {
 
 
                         //시연용 (초단위)
-                        time=(picker1.getValue());
-                        time=Integer.parseInt(Values[picker1.getValue()]);
-                        tmptime=Integer.parseInt(Values[picker1.getValue()]);
+//                        time=(picker1.getValue());
+//                        time=Integer.parseInt(Values[picker1.getValue()]);
+//                        tmptime=Integer.parseInt(Values[picker1.getValue()]);
 //
 //                        resttime=picker2.getValue();
 //                        tmpresttime=picker2.getValue();
@@ -382,15 +410,33 @@ public class CountdownTimer extends AppCompatActivity {
         //해당 기본 값이 true 상태로 세팅
         nr.mFinished=true;
 
+        //명언 쓰레드 생성//
+        //Wsaying = new WsayRunnable();
+        WS = new Thread(Wsaying);
+
         //세팅 -> 실행 수행
         start = (Button)findViewById(R.id.btnStart);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(start.getText().equals("시작")) {
+                //명언 핸들러를 호출해서 사용하기//
+
+                if(WS.isAlive()==false){
+                    WS.start();
+                }
+
+                if(tmptime==0){
+                    Toast.makeText(getApplicationContext(), "현재 타이머가 세팅되어져 있지 않습니다.", Toast.LENGTH_LONG).show();
+                }
+                else if(start.getText().equals("시작")) {
 
                     //중단 <-> 재실행 버튼지정(해당 버튼은 타이머가 진행시에만 생성.)//
                     final Button PauseResume = (Button) findViewById(R.id.PauseResume);
+
+                    //카운트 상태 나타내는 텍스트 표시
+                    clockTextView = findViewById(R.id.count) ;
+                    clockTextView.setVisibility(View.VISIBLE);
+
                     PauseResume.setVisibility(View.VISIBLE);
                     PauseResume.setText("중지");
                     PauseResume.setOnClickListener(new View.OnClickListener() {
@@ -410,6 +456,9 @@ public class CountdownTimer extends AppCompatActivity {
                     });
                     //중단 <-> 재실행 부분 끝//
                     wisesayTextView.setVisibility(View.VISIBLE);
+
+                    //세트 정보 보이기//
+                    clockTextView.setVisibility(View.VISIBLE);
 
                     Button timerset = (Button)findViewById(R.id.btnTimeset);
                     timerset.setVisibility(View.INVISIBLE); //실행시에는 타이머 세팅 버튼이 사라지도록 처리//
@@ -431,29 +480,61 @@ public class CountdownTimer extends AppCompatActivity {
                 }
                 //쓰레드 종료 처리 및 초기화 기능 처리
                 else{
-                    wisesayTextView.setVisibility(View.INVISIBLE);
+                    nr.onPause();
 
-                    Button timerset = (Button)findViewById(R.id.btnTimeset);
-                    timerset.setVisibility(View.VISIBLE); //실행시에는 타이머 세팅 버튼이 사라지도록 처리//
+                    //포기하는 것을 재확인 하는 다이얼로그를 띄운다.
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CountdownTimer.this);
 
-                    //중단 <-> 재실행 버튼지정(해당 버튼은 타이머가 진행시에만 생성.)//
-                    Button PauseResume = (Button) findViewById(R.id.PauseResume);
-                    PauseResume.setVisibility(View.INVISIBLE);
+                    builder.setTitle("집중을 포기하실껀가요?");
 
 
-                    nr.mFinished=true; //쓰레드 죽이기//
-                    nr.mPaused=true; //쓰레드 멈춤상태로 지정//
+                    builder.setPositiveButton("아니오", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            nr.onResume();
 
-                    Progress.onProgressUpdate(0);//프로그래스 초기화 시키기//
-                    clockTextView = findViewById(R.id.clock) ;
+                        }
+                    });
 
-                    time=tmptime;//time값을 텍스트에 반영하기//
-                    mHandler.sendEmptyMessage(0); // 초기의 time값을 텍스트에 반영
+                    builder.setNegativeButton("네", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
-                    resttime=tmpresttime;
-                    setcount=tmpsetcount;
+                            //카운트 상태 나타내는 텍스트 표시
+                            clockTextView = findViewById(R.id.count) ;
+                            clockTextView.setVisibility(View.INVISIBLE);
 
-                    start.setText("시작");
+                            wisesayTextView.setVisibility(View.INVISIBLE);
+
+                            Button timerset = (Button)findViewById(R.id.btnTimeset);
+                            timerset.setVisibility(View.VISIBLE); //실행시에는 타이머 세팅 버튼이 사라지도록 처리//
+
+                            //중단 <-> 재실행 버튼지정(해당 버튼은 타이머가 진행시에만 생성.)//
+                            Button PauseResume = (Button) findViewById(R.id.PauseResume);
+                            PauseResume.setVisibility(View.INVISIBLE);
+
+
+                            nr.mFinished=true; //쓰레드 죽이기//
+                            nr.mPaused=true; //쓰레드 멈춤상태로 지정//
+
+                            Progress.onProgressUpdate(0);//프로그래스 초기화 시키기//
+                            clockTextView = findViewById(R.id.clock) ;
+
+                            time=tmptime;//time값을 텍스트에 반영하기//
+                            mHandler.sendEmptyMessage(0); // 초기의 time값을 텍스트에 반영
+
+                            resttime=tmpresttime;
+                            setcount=tmpsetcount;
+
+                            start.setText("시작");
+
+
+                        }
+                    });
+
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+
                 }
             }
         });
@@ -487,6 +568,7 @@ public class CountdownTimer extends AppCompatActivity {
 
                     time--;
                 } else if (resttime > 0) {//해당부분에서 쓰레드의 시간이 바뀜으로써 "다음단계가" 진행 되여야 한다.
+                    countrestHandler.sendEmptyMessage(0);
                    Onrest = true; // 휴식 상태가 true로 바뀐다.
 
                     //휴식시간이 30초 가 남았을때의 처리하기(생명주기 상태에 따라서 다르다!!)
@@ -519,6 +601,9 @@ public class CountdownTimer extends AppCompatActivity {
 
                     setcount--;
                     if (setcount == 0) {
+                        clockTextView = findViewById(R.id.count) ;
+                        clockTextView.setVisibility(View.INVISIBLE);
+
                         finishHandler.sendEmptyMessage(0); // time값을 텍스트에 반영
 
                         //기존에 세팅되어져 있던 시간과 세트 값들을 유지 함
@@ -580,36 +665,75 @@ public class CountdownTimer extends AppCompatActivity {
 
 
     class WsayRunnable implements Runnable {
+        private Object mPauseLock;
+        private boolean mPaused;
+        private boolean mFinished;
+
+        public WsayRunnable() {
+            mPauseLock = new Object();
+            mPaused = false;
+            mFinished = false;
+        }
         @Override
         public void run() {
-            while (true) {
+            while (!mFinished) {
 //                if(time==0 && resttime==0){
 //                    Log.e(this.getClass().getName(), "Wsay 쓰레드가 완료 되었습니다.");
 //                    break;
 //                }
 
-                if(time>-2) {
-                    //mHandler.sendEmptyMessage(0);
-                    //Log.e(this.getClass().getName(), "time 값 : " + String.valueOf(time));
-                    WiseSayHandler.sendEmptyMessage(0);
-                    //time--;
-                }
-                else{
-                    //Log.e(this.getClass().getName(), "Wsay 쓰레드가 완료 되었습니다.");
-                    break;
-                }
+                    if (time > -2) {
+                        //mHandler.sendEmptyMessage(0);
+                        //Log.e(this.getClass().getName(), "time 값 : " + String.valueOf(time));
+                        WiseSayHandler.sendEmptyMessage(0);
+                        //time--;
+                    } else {
+                        //Log.e(this.getClass().getName(), "Wsay 쓰레드가 완료 되었습니다.");
+                        break;
+                    }
 
-                try {
-                    Thread.sleep(5000);
-                } catch (Exception e) {
-                    e.printStackTrace() ;
-                }
+                    try {
+                        Thread.sleep(5000);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    ///////쓰레드를 제어하는 구문////////
+                    synchronized (mPauseLock) {
+                        while (mPaused) {
+                            try {
+                                mPauseLock.wait(1000);
+                            } catch (InterruptedException e) {
+                            }
+                        }
+                    }
+
+            }
+        }
+
+        /**
+         * Call this on pause.
+         */
+        public void onPause() {
+            synchronized (mPauseLock) {
+                mPaused = true;
+            }
+        }
+
+        /**
+         * Call this on resume.
+         */
+        public void onResume() {
+            synchronized (mPauseLock) {
+                mPaused = false;
+                mPauseLock.notifyAll();
             }
         }
     }
 
     //안드로이드 체크 쓰레드// 해당쓰레드를 통해서 실행 재실행 처리를 먼저 해보자.
     class ActivityCheckRunnable implements Runnable {
+
         @Override
         public void run() {
             while (true) {
@@ -620,7 +744,7 @@ public class CountdownTimer extends AppCompatActivity {
                 else if(Activitycondition.equals("onPause")) {
                     //Log.e(this.getClass().getName(), "현재 Onpause 상태입니다.");
                     outcount++;
-                    if(outcount>10 && nr.mPaused==false && Onrest==false){
+                    if(outcount==10 && nr.mPaused==false && Onrest==false){
                         //바깥 상태로 10초 경과가 있는 경우//
                         // 일단 타이머는 정지된다
                         //RunOnUiThread 를 활용하여, UI부분 수정을 활용해 보기.
@@ -655,6 +779,9 @@ public class CountdownTimer extends AppCompatActivity {
 
                         //RunOnUiThread 를 활용하여, UI부분 수정을 활용해 보기.
                         runOnUiThread(new Runnable() { public void run() {
+                            clockTextView = findViewById(R.id.count) ;
+                            clockTextView.setVisibility(View.INVISIBLE);
+
                             //타이머가 초기화가 되어져 버렸을 경우에는 초기화를 시켜버린다//
                             Button PauseResume = (Button) findViewById(R.id.PauseResume);
                             PauseResume.setVisibility(View.INVISIBLE);
@@ -688,6 +815,54 @@ public class CountdownTimer extends AppCompatActivity {
 
 
 
+    //명언을 주기적으로 바꿔주기 위한 AsyncTask의 처리//
+    class WsayTask extends AsyncTask<Integer, Integer, String> {
+
+        //백그라운드에서 실행되어지는 부분
+        @Override
+        protected String doInBackground(Integer... params) {
+            Log.e(this.getClass().getName(), String.valueOf(params[0]));
+            for (; count <= params[0]; count++) {
+                Log.e(this.getClass().getName(), "params[0]:"+String.valueOf(params[0]));
+                Log.e(this.getClass().getName(), "count:"+String.valueOf(count));
+                try {
+                    publishProgress(count);
+                    if(params[0]==count){
+                        count=0;
+                    }
+                    Thread.sleep(6000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            return "Task Completed.";
+        }
+        @Override
+        //해당작업이 완료 되었을 때
+        protected void onPostExecute(String result) {
+            //progressBar.setVisibility(View.GONE);
+//            txt.setText(result);
+//            btn.setText("Restart");
+        }
+        @Override
+        // Task가 실행전에
+        protected void onPreExecute() {
+            //txt.setText("Task Starting...");
+        }
+        @Override
+        // Task가 업데이트 중일때.
+        protected void onProgressUpdate(Integer... values) {
+            TextView wisesayTextView = findViewById(R.id.wisesaying);
+            wisesayTextView.setText(""+wsaylist.get(values[0]-1));
+            //progressBar.setProgress(values[0]);
+            Log.e(this.getClass().getName(), String.valueOf(values[0]));
+            Log.e(this.getClass().getName(), wsaylist.get(values[0]-1));
+        }
+    }
+
+
+
+    //프로그래스바를 처리해주기 위한 AsyncTask의 처리//
     class ProgressbarTask extends AsyncTask<Integer, Integer, String> {
 
         //백그라운드에서 실행되어지는 부분
@@ -734,15 +909,23 @@ public class CountdownTimer extends AppCompatActivity {
         @Override
         public void handleMessage(@NonNull Message msg) {
             if(msg.what==0){
-                final EditText et = new EditText(getApplicationContext());
-                new AlertDialog.Builder(CountdownTimer.this).setMessage(maincount-setcount+1+"세트 : 어떤 공부를 하셨나요?").setView(et)
-                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .show();
+//                final EditText et = new EditText(getApplicationContext());
+//                AlertDialog dialog = new AlertDialog.Builder(CountdownTimer.this).setMessage(maincount-setcount+1+"세트 : 어떤 공부를 하셨나요?").setView(et)
+//                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.dismiss();
+//                            }
+//                        })
+//                        .show();
+//                dialog.show();
+                //다이얼로그는 30초가 지나면 종료된다.
+//                try {
+//                    Thread.sleep(30000);
+//                    dialog.dismiss();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
             }
         }
     };
@@ -758,7 +941,10 @@ public class CountdownTimer extends AppCompatActivity {
 
     protected void onStart(){
         super.onStart();
-        nr.onResume();
+        //화면에서 잠시 나갔다가 돌아왔을 때에, 타이머 쓰레드가 중지 상태라면 재실행.
+        if(nr.mPaused=true) {
+            nr.onResume();
+        }
         outcount = 0;
 
         Activitycondition="onStart";
@@ -768,6 +954,13 @@ public class CountdownTimer extends AppCompatActivity {
         super.onStop();
         //nr.onPause();
         //Activitycondition="onStop";
+    }
+
+    protected void onDestroy(){
+        super.onDestroy();
+        Wsaying.mFinished=true;
+        WS.interrupt();
+
     }
 
     ///////노티피케이션으로 안내 하기///////
@@ -780,7 +973,7 @@ public class CountdownTimer extends AppCompatActivity {
         builder.setContentTitle("딴짓 하지마세요");
         builder.setContentText("10초 내로 화면으로 돌아가지 않으면 타이머가 초기화 되버립니다.");
 
-        builder.setColor(Color.RED);
+        //builder.setColor(Color.RED);
         // 사용자가 탭을 클릭하면 자동 제거
         builder.setAutoCancel(true);
 
@@ -803,7 +996,7 @@ public class CountdownTimer extends AppCompatActivity {
         builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setContentTitle("타이머가 초기화 되었습니다. 집중하셔야죠!");
 
-        builder.setColor(Color.RED);
+        //builder.setColor(Color.RED);
         // 사용자가 탭을 클릭하면 자동 제거
         builder.setAutoCancel(true);
 
@@ -824,9 +1017,9 @@ public class CountdownTimer extends AppCompatActivity {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
 
         builder.setSmallIcon(R.mipmap.ic_launcher);
-        builder.setContentTitle("휴식시간이 얼마남지 않았습니다. 다음 공부를 준비하세요.");
+        builder.setContentTitle("휴식시간이 얼마남지 않았습니다. 다음 공부를 준비해주세요.");
 
-        builder.setColor(Color.RED);
+        //builder.setColor(Color.RED);
         // 사용자가 탭을 클릭하면 자동 제거
         builder.setAutoCancel(true);
 

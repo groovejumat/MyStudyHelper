@@ -69,6 +69,15 @@
 <!--    android:progressTint="#64868686"
     android:progressBackgroundTint="#FF0000"-->
 
+    <TextView
+        android:id="@+id/count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/clock" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
@@ -103,15 +112,7 @@
             android:gravity="center"
             android:text="TextView"
             android:textColor="#000000"
-            android:textSize="25dp" />
-
-        <TextView
-            android:id="@+id/count"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="회차"
-            android:textColor="#00924B4B"
-            android:textSize="25dp" />
+            android:textSize="20dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
