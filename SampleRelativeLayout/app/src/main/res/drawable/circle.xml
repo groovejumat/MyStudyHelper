@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="ring"
-    android:innerRadiusRatio="2.5"
-    android:thickness="10dp"
-    android:useLevel="true">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+    <shape xmlns:android="http://schemas.android.com/apk/res/android"
+        android:shape="ring"
+        android:innerRadiusRatio="2.5"
+        android:thickness="10dp"
+        android:useLevel="false">
+        <solid android:color="#BEBEBE" />
+    </shape>
+    </item>
 
-    <solid android:color="@color/colorAccent" />
-</shape>
+    <item android:id="@android:id/background">
+    <shape xmlns:android="http://schemas.android.com/apk/res/android"
+        android:shape="ring"
+        android:innerRadiusRatio="2.5"
+        android:thickness="10dp"
+        android:useLevel="true">
+        <solid android:color="#FF0000" />
+    </shape>
+    </item>
+</layer-list>

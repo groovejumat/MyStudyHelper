@@ -10,11 +10,13 @@
         android:id="@+id/PauseResume"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:background="#BEBEBE"
         android:text="Button"
-        app:layout_constraintEnd_toEndOf="@+id/btnStart"
-        app:layout_constraintStart_toStartOf="@+id/btnStart"
-        app:layout_constraintTop_toBottomOf="@+id/btnStart" />
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnStart" />
 
     <Button
         android:id="@+id/btnTimeset"
@@ -23,6 +25,7 @@
         android:layout_weight="1"
         android:background="#BEBEBE"
         android:text="타이머세팅"
+        android:textSize="16dp"
         app:layout_constraintBottom_toTopOf="@+id/progressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -35,6 +38,7 @@
         android:background="#BEBEBE"
         android:onClick="clickHandler"
         android:text="시작"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar" />
@@ -43,7 +47,7 @@
         android:id="@+id/clock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="00"
+        android:text="00:00"
         android:textAlignment="center"
         android:textSize="70dp"
         app:layout_constraintBottom_toBottomOf="@+id/progressBar"
@@ -55,14 +59,15 @@
         android:layout_width="400dp"
         android:layout_height="400dp"
         android:layout_gravity="center"
-        android:background="#00FFFFFF"
         android:progressDrawable="@drawable/circle"
-        android:progressTint="#FF3434"
-        android:progressBackgroundTint="#FF0000"
+        tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+<!--    android:progressTint="#64868686"
+    android:progressBackgroundTint="#FF0000"-->
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -105,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="회차"
-            android:textColor="#18924B4B"
+            android:textColor="#00924B4B"
             android:textSize="25dp" />
 
         <LinearLayout
@@ -120,7 +125,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:textColor="#18924B4B"
+            android:textColor="#00924B4B"
             android:textSize="20dp" />
 
         <TextView
@@ -128,7 +133,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:textColor="#18924B4B"
+            android:textColor="#00924B4B"
             android:textSize="30dp" />
 
     </LinearLayout>

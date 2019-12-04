@@ -101,6 +101,7 @@ public class CountdownTimer extends AppCompatActivity {
         setContentView(R.layout.activity_countdowntimer);
 
         Activitycondition="onCreate";
+        outcount = 0;
 
 
         //메인화면에 텍스트 뷰로 타이머 세팅 값 표시하기
@@ -214,12 +215,12 @@ public class CountdownTimer extends AppCompatActivity {
             public void handleMessage(Message msg) { //해당 메시지를 메인쓰레드에 보내서 처리해주는 거다.
 
                 List<String> list = new ArrayList<>();
-                list.add("꾸준함은 기본이지.");
-                list.add("어떻게 하면 \"잘\" 할 수 잇을까?");
-                list.add("30분마다 잘 기록하고 있어?");
-                list.add("멍때리고 있는거 아니지?");
-                list.add("너도 니 친구들만큼 열심히 살아야지.");
-                list.add("멘탈 꽉 붙들어 잡아.");
+                list.add("성공을 확신하는 것은 성공의 첫걸음이다.");
+                list.add("10분 뒤와 10년 후를 동시에 생각하라.");
+                list.add("고뇌에 지는 것은 수치가 아니다. 쾌락에 지는 것이야 말로 수치다.");
+                list.add("늦게 시작하는 것을 두려워 말고, 하다 중단하는 것을 두려워 하라.");
+                list.add("많이 보고 많이 겪고 많이 공부하는 것은 배움의 세 기둥이다.");
+                list.add("공부벌레들에게 잘 해 주십시오. 나중에 그 사람 밑에서 일하게 될 수도 있습니다.");
 
                 TextView wisesayTextView;
                 wisesayTextView = findViewById(R.id.wisesaying) ; // 뷰에서 작업 처리를 해당 메서드 안에서 해준다.
@@ -242,10 +243,12 @@ public class CountdownTimer extends AppCompatActivity {
         WS.start();
 
 
-        //실제 다이얼로그 세팅 하기
 
+        //실제 다이얼로그 세팅 하기
         Button timerset = (Button)findViewById(R.id.btnTimeset);
         timerset.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View v) {
                 final Dialog dialog = new Dialog(CountdownTimer.this);
@@ -253,21 +256,33 @@ public class CountdownTimer extends AppCompatActivity {
 
                 //공부시간
                 picker1 = (NumberPicker)dialog.findViewById(R.id.picker1);
+                final String[] Values = new String[36];
+
+                //넘버피커를 5단위로 지정하기 유저가 세팅하기 편하게
+                for (int i = 0; i < Values.length; i++) {
+                    String number = Integer.toString(i*5+10);
+                    Values[i] = number.length() < 2 ? "0" + number : number;
+                    Log.e(this.getClass().getName(), "현재 넘버피커의 값 : " + Values[i]);
+                }
+
+
+
                 //휴식시간
                 picker2 = (NumberPicker)dialog.findViewById(R.id.picker2);
                 //총 횟수
                 picker3 = (NumberPicker)dialog.findViewById(R.id.picker3);
 
                 //공부시간 최소 최대 값 설정
-                picker1.setMinValue(15);
-                picker1.setMaxValue(180);
-                picker1.setValue(10);
+                picker1.setMinValue(0);
+                picker1.setMaxValue(34);
+                picker1.setValue(0);
+                picker1.setDisplayedValues(Values);
                 picker1.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                     @Override
                     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                         //타임피커로 공부시간 값 세팅(임시)
-                        tmptime=newVal*60;
-                        time = newVal*60;
+//                        tmptime=newVal*60;
+//                        time = newVal*60;
                         picker1.setValue(newVal);
                     }
                 });
@@ -316,22 +331,27 @@ public class CountdownTimer extends AppCompatActivity {
                         setcounttext = (TextView)findViewById(R.id.setcount);
 
                         //해당 값을 세팅하기
-                        timetext.setText("세팅된 공부시간 " + picker1.getValue() + "분");
+                        timetext.setText("세팅된 공부시간 " + Integer.parseInt(Values[picker1.getValue()]) + "분");
                         resttimetext.setText("세팅된 휴식시간 "+picker2.getValue() + "분");
                         setcounttext.setText("세팅된 횟수 "+picker3.getValue()+"번");
 
                         //실제 변수에 넘버피커 값을 세팅하기
-                        time=picker1.getValue()*60;
-                        tmptime=picker1.getValue()*60;
+                        time=Integer.parseInt(Values[picker1.getValue()]);
+                        time=Integer.parseInt(Values[picker1.getValue()])*60;
+                        tmptime=Integer.parseInt(Values[picker1.getValue()])*60;
+
+//                        time=picker1.getValue()*60;
+//                        tmptime=picker1.getValue()*60;
 
                         resttime=picker2.getValue()*60;
                         tmpresttime=picker2.getValue()*60;
 
 
                         //시연용 (초단위)
-                        time=picker1.getValue();
-                        tmptime=picker1.getValue();
-
+                        time=(picker1.getValue());
+                        time=Integer.parseInt(Values[picker1.getValue()]);
+                        tmptime=Integer.parseInt(Values[picker1.getValue()]);
+//
 //                        resttime=picker2.getValue();
 //                        tmpresttime=picker2.getValue();
 
@@ -359,6 +379,8 @@ public class CountdownTimer extends AppCompatActivity {
         });
 
 
+        //해당 기본 값이 true 상태로 세팅
+        nr.mFinished=true;
 
         //세팅 -> 실행 수행
         start = (Button)findViewById(R.id.btnStart);
@@ -402,8 +424,6 @@ public class CountdownTimer extends AppCompatActivity {
                     progressBar.setMax(time); // 최대치 값은 100 (내부에서는 time 값에 맞춰서 변경이 필요하다)
                     progressBar.setProgress(0);
                     Progress=new ProgressbarTask();
-
-
 
                     Thread count = new Thread(nr);
                     count.start();
@@ -505,6 +525,13 @@ public class CountdownTimer extends AppCompatActivity {
                         time=tmptime;
                         resttime=tmpresttime;
                         setcount=tmpsetcount;
+                        nr.mFinished=true;
+                        runOnUiThread(new Runnable() { public void run() {
+                            Button PauseResume = (Button) findViewById(R.id.PauseResume);
+                            PauseResume.setVisibility(View.INVISIBLE);
+                        } });
+
+
                         break;
                     }
                     //한 사이클이 끝나면, 값을 세팅해주고, 초기화 시킵니다.
@@ -595,7 +622,7 @@ public class CountdownTimer extends AppCompatActivity {
                     outcount++;
                     if(outcount>10 && nr.mPaused==false && Onrest==false){
                         //바깥 상태로 10초 경과가 있는 경우//
-                        nr.mPaused=true; // 일단 타이머는 정지된다
+                        // 일단 타이머는 정지된다
                         //RunOnUiThread 를 활용하여, UI부분 수정을 활용해 보기.
                         runOnUiThread(new Runnable() { public void run() {
                             //중지가 된 상태에서 되돌아 왔을 때에는 재시작 상태.
@@ -606,7 +633,7 @@ public class CountdownTimer extends AppCompatActivity {
                         createNotification();
                     }
                     //내 타이머 쓰레드가 멈추지 않은 상태에서 Onstop상태로 20초가 경과 하였을 때 처리.
-                    if(outcount>20 && nr.mFinished==false && Onrest==false ){
+                    if(outcount>20 && nr.mFinished==false && Onrest==false && nr.mPaused==false ){  //바깥에서의 시간이 20초가 경과했고, 초시계쓰레드는 돌아가고 있으며, 휴식상태가 아니고, 시계를 일시 중지한 상태가 아닐 경우에 처리//
                         outcount=0;
                         //바깥 상태로 20초 경과가 있는 경우 타이머를 초기화 시킴//
                         TextView wisesayTextView = findViewById(R.id.wisesaying);
@@ -818,6 +845,19 @@ public class CountdownTimer extends AppCompatActivity {
 
         // Notification 제거
         NotificationManagerCompat.from(this).cancel(1);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        Log.e(this.getClass().getName(), "현재 타임 쓰레드의 상태 : " +  nr.mFinished);
+        //타이머가 돌고 있을 때에는 백버튼이 불가능하다. 하지만 타이머가 안돌고 있을 때에는 백버튼 사용이 가능하다.
+        if(nr.mFinished==true) {
+            super.onBackPressed();
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "타이머 진행중인 경우 뒤로가기를 하실 수 없습니다.", Toast.LENGTH_LONG).show();
+        }
     }
 }
 

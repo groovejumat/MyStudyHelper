@@ -21,7 +21,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="10dp"
-        android:background="#45FFD8D8"
+        android:background="#00FFFFFF"
         android:baselineAligned="false">
 
         <TextView
@@ -39,8 +39,9 @@
             android:layout_width="50dp"
             android:layout_height="60dp"
             android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
 
-            android:layout_centerHorizontal="true" />
+            android:theme="@style/numberPickerCustomSize" />
 
         <TextView
             android:id="@+id/textView5"
@@ -62,7 +63,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="10dp"
-        android:background="#45FFD8D8"
+        android:background="#00FFFFFF"
         android:baselineAligned="false"
         android:gravity="center">
 
@@ -81,7 +82,8 @@
             android:layout_width="50dp"
             android:layout_height="60dp"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:theme="@style/numberPickerCustomSize" />
 
         <TextView
             android:id="@+id/textView7"
@@ -101,7 +103,7 @@
         android:layout_gravity="center|right"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="10dp"
-        android:background="#45FFD8D8"
+        android:background="#00FFFFFF"
         android:baselineAligned="false"
         android:orientation="horizontal">
 
@@ -120,7 +122,8 @@
             android:layout_width="50dp"
             android:layout_height="60dp"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:theme="@style/numberPickerCustomSize" />
 
         <TextView
             android:id="@+id/textView8"
