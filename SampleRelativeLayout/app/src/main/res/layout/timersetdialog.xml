@@ -141,6 +141,6 @@
         android:id="@+id/setfinish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="타이머세팅완료" />
+        android:text="타이머 세팅 완료" />
 
 </LinearLayout>

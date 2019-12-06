@@ -13,6 +13,8 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -194,7 +196,7 @@ public class CountdownTimer extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg) {
                 clockTextView = findViewById(R.id.count) ;
-                clockTextView.setText(String.valueOf(maincount-setcount+1) + "세트 집중") ; //지정한 세트수가 반영된다.
+                clockTextView.setText(String.valueOf(maincount-setcount+1) + "세트 공부") ; //지정한 세트수가 반영된다.
             }
         } ;
 
@@ -247,7 +249,9 @@ public class CountdownTimer extends AppCompatActivity {
                 list.add("고뇌에 지는 것은 수치가 아니다.\n쾌락에 지는 것이야 말로 수치다.");
                 list.add("늦게 시작하는 것을 두려워 말고,\n 하다 중단하는 것을 두려워 하라.");
                 list.add("많이 보고 많이 겪고 많이 공부하는 것은\n 배움의 세 기둥이다.");
-                list.add("공부벌레들에게 잘 해 주십시오.\n 나중에 그 사람 밑에서 일하게 될 수도 있습니다.");
+                list.add("눈부신 성취는 언제나\n 특별하지 않은 준비뒤에 오게 된다.");
+                list.add("배우나 생각하지 않으면 공허하고,\n 생각하나 배우지 않으면 위험하다.");
+                list.add("가장 유능한 사람은\n 가장 배움에 힘쓰는 사람이다.");
 
                 TextView wisesayTextView;
                 wisesayTextView = findViewById(R.id.wisesaying) ; // 뷰에서 작업 처리를 해당 메서드 안에서 해준다.
@@ -319,7 +323,7 @@ public class CountdownTimer extends AppCompatActivity {
                 //휴식시간 최소 최대 값 설정
                 picker2.setMinValue(1);
                 picker2.setMaxValue(15);
-                picker2.setValue(5);
+                picker2.setValue(1);
                 picker2.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                     @Override
                     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
@@ -334,7 +338,7 @@ public class CountdownTimer extends AppCompatActivity {
                 //세트수 최소 최대 설정
                 picker3.setMinValue(1);
                 picker3.setMaxValue(5);
-                picker3.setValue(1);
+                picker3.setValue(2);
                 picker3.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                     @Override
                     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
@@ -569,7 +573,8 @@ public class CountdownTimer extends AppCompatActivity {
                     time--;
                 } else if (resttime > 0) {//해당부분에서 쓰레드의 시간이 바뀜으로써 "다음단계가" 진행 되여야 한다.
                     countrestHandler.sendEmptyMessage(0);
-                   Onrest = true; // 휴식 상태가 true로 바뀐다.
+                    Onrest = true; // 휴식 상태가 true로 바뀐다.
+                    outcount=0;
 
                     //휴식시간이 30초 가 남았을때의 처리하기(생명주기 상태에 따라서 다르다!!)
                     if(resttime==30 && Activitycondition.equals("onStart")){
@@ -623,6 +628,7 @@ public class CountdownTimer extends AppCompatActivity {
                     time = firsttime;
                     resttime = firstresttime;
                     Progress.onProgressUpdate(0);
+                    countHandler.sendEmptyMessage(0);
                 }
                 try {
                     Thread.sleep(1000);
@@ -941,9 +947,10 @@ public class CountdownTimer extends AppCompatActivity {
 
     protected void onStart(){
         super.onStart();
+        Button PauseResume = (Button) findViewById(R.id.PauseResume);
         //화면에서 잠시 나갔다가 돌아왔을 때에, 타이머 쓰레드가 중지 상태라면 재실행.
-        if(nr.mPaused=true) {
-            nr.onResume();
+        if(nr.mPaused=true&&PauseResume.getText().equals("중지")) {
+                nr.onResume();
         }
         outcount = 0;
 
@@ -970,8 +977,8 @@ public class CountdownTimer extends AppCompatActivity {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
 
         builder.setSmallIcon(R.mipmap.ic_launcher);
-        builder.setContentTitle("딴짓 하지마세요");
-        builder.setContentText("10초 내로 화면으로 돌아가지 않으면 타이머가 초기화 되버립니다.");
+        builder.setContentTitle("혹시 딴 짓 하고 계신가요?");
+        builder.setContentText("10초 내로 화면으로 돌아가지 않으면 \n 타이머가 초기화 되버립니다.");
 
         //builder.setColor(Color.RED);
         // 사용자가 탭을 클릭하면 자동 제거
@@ -994,7 +1001,7 @@ public class CountdownTimer extends AppCompatActivity {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
 
         builder.setSmallIcon(R.mipmap.ic_launcher);
-        builder.setContentTitle("타이머가 초기화 되었습니다. 집중하셔야죠!");
+        builder.setContentTitle("타이머가 초기화 되어버렸습니다. 집중하셔야죠!");
 
         //builder.setColor(Color.RED);
         // 사용자가 탭을 클릭하면 자동 제거
